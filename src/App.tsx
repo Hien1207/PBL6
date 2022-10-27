@@ -3,7 +3,7 @@ import { useAuth } from '@hooks'
 import Loading from '@components/loading'
 import Approutes from './Routes'
 import { useEffect } from 'react'
-
+import "./index.css";
 function App() {
   const { isLoading, loadProfileAction } = useAuth()
 

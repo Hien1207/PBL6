@@ -6,13 +6,12 @@ import { useRoot } from '@hooks'
 
 const Wrapper: any = styled.div`
   overflow: auto;
-  padding-left: ${({ sidebarCompact }: any) => (sidebarCompact ? '4rem' : '14rem')};
   margin: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: ${({ theme }: any) => theme.bg_primary_light};
   height: 100%;
+  position: absolute;
 `
 const Main = styled.main`
   display: flex;
@@ -24,16 +23,16 @@ const Main = styled.main`
 const Content = styled.div`
   width: 100%;
   overflow: hidden;
+  background-color:white;
   /* position: relative; */
 `
 
 const HomeLayout = ({ children }: any) => {
   const { sidebarCompact } = useRoot()
   return (
-    <Wrapper sidebarCompact={sidebarCompact}>
+    <Wrapper >
       <Header />
       <Main>
-        <SiderBar />
         <Content>
           {children}
         </Content>

@@ -1,7 +1,13 @@
 // images
 import E_LEARNING_LOGO from './images/logo-e-learning.png'
-import NISSOKEN_LOGO from './images/logo_nissoken.png'
 import CLOSE from './images/close.png'
+import Background from './images/background.png'
+import ICON_Locate from './images/icon_locate.png'
+import ICON_Calendar from './images/calendar.png'
+import ICON_Search from './images/search.png'
+import Quytrinh from './images/imageqt.png'
+import Gioithieu from './images/image_gt.png'
+import LOGO_ICON from './images/logo.png'
 
 // import svg as react component
 import { ReactComponent as EN_ICON } from './icons/flags/en.svg'
@@ -14,6 +20,7 @@ import { ReactComponent as EDIT_ICON } from './icons/edit.svg'
 import { ReactComponent as PLUS_RECTANGLE_ICON } from './icons/plus_rectangle.svg'
 import { ReactComponent as UPLOAD_ICON } from './icons/upload.svg'
 import { ReactComponent as ASSIGNMENT_ICON } from './icons/assignment.svg'
+import { ReactComponent as ICON_VXR} from './icons/icon_vxr_full.svg'
 
 // menu
 import { ReactComponent as ICON_HOME_MENU } from './icons/menu/fa_home.svg'
@@ -30,6 +37,7 @@ import { ReactComponent as ICON_SETTING_MENU } from './icons/menu/setting-menu.s
 import { ReactComponent as ICON_GROUP_MENU } from './icons/menu/group.svg'
 import { ReactComponent as ICON_ATTRIBUTE_MENU } from './icons/menu/attribute.svg'
 import { ReactComponent as ICON_FILE } from './icons/file.svg'
+
 
 // template
 import { ReactComponent as LOGO } from './template/logo.svg'
@@ -61,7 +69,6 @@ export {
   ICON_SEND,
   ICON_GROUP_MENU,
   ICON_ATTRIBUTE_MENU,
-  NISSOKEN_LOGO,
   PLUS_ICON,
   MANAGEMENT_ICON,
   CLOCK_ICON,
@@ -71,6 +78,12 @@ export {
   ASSIGNMENT_ICON,
   CLOSE,
   ICON_FILE,
+  ICON_VXR,
+  Background,
+  ICON_Locate,
+  ICON_Calendar,
+  ICON_Search,
+  Gioithieu,
 
   // template
   LOGO,
@@ -82,5 +95,7 @@ export {
   LOGOUT_ICON,
   COURSE_ICON,
   MORE_HORIZONTAL_ICON,
-  FOLDER_ICON
+  FOLDER_ICON,
+  Quytrinh,
+  LOGO_ICON,
 }
