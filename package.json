@@ -105,9 +105,9 @@
     ]
   },
   "scripts": {
-    "start": "craco start --legacy-peer-deps",
-    "build": "craco build --legacy-peer-deps",
-    "test": "craco test --legacy-peer-deps",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "import:i18n": "node ./scripts/import_i18n.js && npm run format",
     "export:i18n": "node ./scripts/export_i18n.js",
