@@ -6,6 +6,10 @@ import Table from './table'
 import Modal from './modal'
 import Title from './title'
 import Loading from './loading'
+import RoutePopular from './routePopular'
+import OutstandingOffer from './outstandingOffer'
+import ConnectionPlatform from './connectionPlatform'
+import NavList from './Nav-list'
 
 import {
   FormRadio,
@@ -21,7 +25,7 @@ import {
   FormInputNumber,
   FormUploadImage,
   FormLabel,
-  FormPassword
+  FormPassword,
 } from './form'
 
 export {
@@ -46,5 +50,9 @@ export {
   FormInputNumber,
   FormUploadImage,
   FormLabel,
-  FormPassword
+  FormPassword,
+  RoutePopular,
+  OutstandingOffer,
+  ConnectionPlatform,
+  NavList,
 }

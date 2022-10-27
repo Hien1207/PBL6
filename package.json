@@ -16,6 +16,7 @@
     "@types/jest": "^27.4.1",
     "@types/json-bigint": "^1.0.1",
     "@types/node": "^16.11.26",
+    "@types/react-datepicker": "^4.4.2",
     "@types/react-modal": "^3.13.1",
     "@types/redux-logger": "^3.0.9",
     "@types/styled-components": "^5.1.24",
@@ -41,6 +42,7 @@
     "prop-types": "^15.7.2",
     "qs": "^6.10.1",
     "react": "^17.0.2",
+    "react-datepicker": "^4.8.0",
     "react-dnd": "^14.0.2",
     "react-dnd-html5-backend": "^14.0.0",
     "react-dom": "^17.0.2",
@@ -54,6 +56,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
     "react-select": "^4.3.1",
+    "react-slick": "^0.29.0",
     "react-sortable-hoc": "^2.0.0",
     "react-toastify": "^7.0.4",
     "redux": "^4.1.0",
@@ -61,6 +64,7 @@
     "redux-saga": "^1.0.5",
     "redux-saga-effects": "^1.1.0",
     "reselect": "^4.0.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.0",
     "tinycolor2": "^1.4.2",
     "typescript": "^4.6.2",
@@ -87,9 +91,13 @@
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-slick": "^0.23.10",
+    "autoprefixer": "^10.4.12",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
-    "prettier": "^2.4.1"
+    "postcss": "^8.4.18",
+    "prettier": "^2.4.1",
+    "tailwindcss": "^3.2.1"
   },
   "lint-staged": {
     "*.(js|jsx)": [

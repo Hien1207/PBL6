@@ -1,41 +1,47 @@
-import { useMemo, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import i18next from '@i18n'
 import { Dropdown, Menu } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { HomeOutlined } from '@ant-design/icons'
-
-import { EN_ICON, VI_ICON, JP_ICON, E_LEARNING_LOGO, LOGOUT_ICON } from '@assets'
+import { items } from "./item";
+import { LOGOUT_ICON, LOGO_ICON } from '@assets'
 import { removeLocalStorage, STORAGE } from '@utils'
 import { useAuth } from '@hooks'
 import { USER_URL, SIGNAL_TYPE } from '@constants'
 import { USER_ROLE } from '@constants/auth'
+import { Link } from "react-router-dom";
+import NavList from '@components/Nav-list'
 
 const Wrapper = styled.header`
-  margin: .7rem 1rem;
-	padding: 0 0.75rem;
-  position: sticky;
+  width: 100%;
+  position: fixed;
+	padding: 0 15rem;
+  padding-top: 0.5rem;
   z-index: 999;
   top: 0;
   display: flex;
   height: 4rem;
   align-items: center;
   border-bottom: 0 solid #f8f9fa;
-  border-radius: 1rem;
   box-shadow: 0 1.6rem 3rem rgb(0 0 0 / 10%);
-  background-color: ${({ theme }) => theme.bg_light_transparent};
+  background-color: ${({ theme }) => theme.white};
   backdrop-filter: blur(0.5rem);
   will-change: backdrop-filter;
-
+  @media screen and (max-width: 1250px){
+      padding: 0 5rem;
+  }
+  @media screen and (max-width: 910px){
+    padding: 0;
+  }
   .container {
     padding: 0 .75rem;
     width: 100%;
     .row {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       .header-left {
-        flex: 1 0;
+        margin-right: 15rem;
         .search {
           display: flex;
           align-items: center;
@@ -65,6 +71,19 @@ const Wrapper = styled.header`
       .header-right {
         flex: 0 0 auto;
         width: auto;
+        margin-left: 24rem;
+        @media screen and (max-width: 1300px){
+            margin-left: 14rem;
+          }
+          @media screen and (max-width: 1250px){
+            margin-left: 18rem;
+          }
+          @media screen and (max-width: 1000px){
+            margin-left: 12rem;
+          }
+          @media screen and (max-width: 910px){
+            margin-left: 10rem;
+          }
         .row {
           flex-wrap: wrap;
 
@@ -118,48 +137,33 @@ const Wrapper = styled.header`
       }
     }
   }
+
 `
 
 const Header = () => {
   const { i18n: { language } } = useTranslation()
   const { profile } = useAuth()
   const role = profile?.role
-
+  
+  const [list, setList] = useState(items);
+  const handleClick = (item: any) => {
+			const newList = list.map((_item: any) => {
+				if (_item.id === item.id) {
+					return { ..._item, isActive: true };
+				} else {
+					return { ..._item, isActive: false };
+				}
+			});
+			setList(newList);
+	};
+  console.log(list)
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
 
     window.location.replace(`${USER_URL}?signal=${SIGNAL_TYPE.LOGOUT}`)
   }, [])
 
-  const languageIcon = useMemo(() => {
-    switch (language) {
-      case 'en':
-        return <EN_ICON />
-      case 'jp':
-        return <JP_ICON />
-      case 'vi':
-        return <VI_ICON />
-      default:
-        return null
-    }
-  }, [language])
 
-  const menu = (
-    <Menu>
-      <Menu.Item key="0" onClick={() => i18next.changeLanguage('en')}>
-        <EN_ICON />
-        <span>&nbsp;English</span>
-      </Menu.Item>
-      <Menu.Item key="1" onClick={() => i18next.changeLanguage('jp')}>
-        <JP_ICON />
-        <span>&nbsp;日本語</span>
-      </Menu.Item>
-      <Menu.Item key="2" onClick={() => i18next.changeLanguage('vi')}>
-        <VI_ICON />
-        <span>&nbsp;Tiếng Việt</span>
-      </Menu.Item>
-    </Menu>
-  )
 
   const dropdownMenu = (
     <Menu>
@@ -180,28 +184,39 @@ const Header = () => {
   )
 
   return (
-    <Wrapper>
+    <Wrapper className='main'>
       <div className="container">
         <div className="row">
-          <div className="header-left">
-            {/* <div className="search" data-tour="search">
-              <label className="border-0 bg-transparent cursor-pointer" htmlFor="searchInput"><SEARCH_ICON /></label>
-              <input id="searchInput" name="searchInput" type="search" className="search-input" placeholder="Search..." autoComplete="off" value="" />
-            </div> */}
-            {/* <img className="logo"  alt="logo" /> */}
-            <h1>Booking Online</h1>
+          <div className="header-left absolute">
+             <img src={LOGO_ICON} className="h-16 mb-2" />
           </div>
-          <div className="header-right">
+          <div className="header-right absolute">
             <div className="row g-3">
-              <div className="col-auto">
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <button type="button" className="btn-action" aria-label="Change language" data-tour="lang-selector" aria-expanded="false">
-                    {languageIcon}
-                  </button>
-                </Dropdown>
+              {/* <NavList isCenter={true} items={list} event={handleClick} /> */}
+              <div >
+                <ul className='flex mb-0'>
+									{list?.map((item, index) =>(
+										<li
+											className={`dark:text-slate-400 mr-10 text-base }`}                     
+											key={index}
+										>
+                        <Link
+                          className="transition-all text-black"
+                          to={item.path}
+                        >
+                          {item.name}
+                        </Link>
+                     
+										</li>
+                    ))}
+								</ul>
               </div>
               <div className="col user-info" role="presentation">
-                <Dropdown overlay={dropdownMenu} trigger={['click']}>
+                <button className="bg-sky-700 w-full flex font-semibold h-8 items-center justify-center  px-3 rounded-md text-white text-sm  fol">
+                  <img src="https://storage.googleapis.com/fe-production/images/Auth/account-circle-fill.svg"/>
+                  <span className='mx-2'>Đăng nhập</span> 
+                </button>
+                {/* <Dropdown overlay={dropdownMenu} trigger={['click']}>
                   <a href="true" className="ant-dropdown-link" style={{ display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}>
                     <div className="me-3">
                       <div className="text-end">
@@ -213,7 +228,7 @@ const Header = () => {
                       <img className="avatar rounded-circle bg-lo25-warning" src={profile?.avatar || 'https://facit-modern.omtanke.studio/static/media/wanna6.33be1958d20715345cc6.webp'} alt="Avatar" width="48" height="48" />
                     </div>
                   </a>
-                </Dropdown>
+                </Dropdown> */}
               </div>
             </div>
           </div>
