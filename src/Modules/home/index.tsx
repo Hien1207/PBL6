@@ -2,24 +2,81 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react'
 
-import { E_LEARNING_LOGO } from '@assets'
+import { Background,ICON_Locate,ICON_Calendar, ICON_Search ,Quytrinh} from '@assets'
 import { Wrapper } from './styled'
+import DatePicker from "react-datepicker";
+import { useEffect, useRef, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
 
-const HomeScreen = () => (
-  <Wrapper id="intro">
-    <div className="row h-fluid-min-100 intro-0-2-5">
-      <div className="col-lg-6 col-12 introImageWrapper-0-2-6">
-        <div className="introImage-0-2-7" />
-      </div>
-      <div className="col-lg-6 col-12 d-flex align-items-center justify-content-center introContentWrapper-0-2-8">
-        <div>
-          <h1 className="display-1 mb-4">Welcome to Booking Online</h1>
-          <p className="display-6 mb-4">Everything is thought to make it easy.</p>
-          <p className="h2 mb-5">Take your coffee and <span className="text-info">focus on your business.</span></p>
-        </div>
-      </div>
-    </div>
-  </Wrapper>
-)
-
+const HomeScreen = () => {
+   const [startDate, setStartDate] = useState(new Date());
+   return (
+      <>
+      <Wrapper id="intro" className='bg-white'>
+         <img src={Background} className="image"/>
+         <div className="w-3/5 bg-white  container rounded-lg block">
+            <div className='flex'>
+                  <div className="w-1/5 h-20 rounded-lg m-6 item flex">
+                     <div className='my-auto mx-2'>
+                        <img src={ICON_Locate}/>
+                     </div>
+                     <div className='my-auto w-32'>
+                        <p className='text-sky-600 mb-1'>Điểm đi</p>
+                        <input 
+                              type="text" 
+                              id="start" 
+                              name="start"
+                              className='w-full pr-2'  
+                              placeholder='Chọn điểm đi' />
+                     </div>
+                  </div>
+                  <div className="w-1/5 h-20 rounded-lg m-6 item flex">
+                     <div className='my-auto mx-2'>
+                        <img src={ICON_Locate}/>
+                     </div>
+                     <div className='my-auto w-32'>
+                        <p className='text-sky-600 mb-1'>Điểm đến</p>
+                        <input 
+                              type="text" 
+                              id="start" 
+                              name="start"
+                              className='w-full pr-2'  
+                              placeholder='Chọn điểm đến' />
+                     </div>
+                  </div>
+                  <div className="w-1/5 h-20 rounded-lg m-6 item flex">
+                     <div className='my-auto mx-4'>
+                        <img src={ICON_Calendar}/>
+                     </div>
+                     <div className='my-auto w-32'>
+                        <p className='text-sky-600 mb-1'>Ngày khởi hành</p>
+                        <DatePicker
+                           id="date"
+                           selected={startDate} 
+                           onChange={(date:Date) => setStartDate(date)} 
+                           minDate={new Date()}
+                           className='w-full'
+                              />
+                     </div>
+                  </div>
+                  <div className="w-1/5 h-20 rounded-lg m-6 item flex bg_red">
+                     <div className='my-auto ml-8 mr-1'>
+                        <img src={ICON_Search}/>
+                     </div>
+                     <div className='my-auto w-32 '>
+                        <p className='text-white mb-1 '>Tìm chuyến</p>
+                     </div>
+                  </div>
+            </div>
+            <h1 className='text-lg text-center'>DỄ DÀNG ĐẶT XE TRÊN WEBSITE</h1>
+            <img src={Quytrinh} className='pb-6 m-auto ml-20'/>
+         </div>
+         <RoutePopular/>
+         <OutstandingOffer/>
+         <ConnectionPlatform />
+      </Wrapper>
+      </>
+   )
+}
 export default HomeScreen
