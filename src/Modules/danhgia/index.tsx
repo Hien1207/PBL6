@@ -13,16 +13,16 @@ const DanggiaScreen = () => (
          {item?.map((item, index) => (
           <div className='h-[8rem] bg-[#0c4a6e] w-[120%] flex mb-10'>
             <div className=' ml-6 mt-6'>
-               <img src={item.avatar}/>
+               <img src={item.avatar} alt=''  />
             </div>
             <div className='block mx-6 my-4 text-white'>
                <p className='mb-1'>{item.name}</p>
                <p className='flex'>
-                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" />
-                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" />
-                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg"/>
-                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" />
-                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" />
+                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" alt='' />
+                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" alt='' />
+                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" alt='' />
+                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" alt='' />
+                  <img src="https://halan.vn/wp-content/uploads/2020/12/Star-1.svg" alt='' />
                </p>
                <p>{item.title}</p>
             </div>

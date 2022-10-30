@@ -5,7 +5,7 @@ import React from 'react'
 import { Background,ICON_Locate,ICON_Calendar, ICON_Search ,Quytrinh} from '@assets'
 import { Wrapper } from './styled'
 import DatePicker from "react-datepicker";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
 
@@ -14,12 +14,12 @@ const HomeScreen = () => {
    return (
       <>
       <Wrapper id="intro" className='bg-white'>
-         <img src={Background} className="image"/>
+         <img src={Background} className="image" alt=''/>
          <div className="w-3/5 bg-white  container rounded-lg block">
             <div className='flex'>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex">
                      <div className='my-auto mx-2'>
-                        <img src={ICON_Locate}/>
+                        <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
                         <p className='text-sky-600 mb-1'>Điểm đi</p>
@@ -33,7 +33,7 @@ const HomeScreen = () => {
                   </div>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex">
                      <div className='my-auto mx-2'>
-                        <img src={ICON_Locate}/>
+                        <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
                         <p className='text-sky-600 mb-1'>Điểm đến</p>
@@ -47,7 +47,7 @@ const HomeScreen = () => {
                   </div>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex">
                      <div className='my-auto mx-4'>
-                        <img src={ICON_Calendar}/>
+                        <img src={ICON_Calendar} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
                         <p className='text-sky-600 mb-1'>Ngày khởi hành</p>
@@ -62,7 +62,7 @@ const HomeScreen = () => {
                   </div>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex bg_red">
                      <div className='my-auto ml-8 mr-1'>
-                        <img src={ICON_Search}/>
+                        <img src={ICON_Search} alt='' />
                      </div>
                      <div className='my-auto w-32 '>
                         <p className='text-white mb-1 '>Tìm chuyến</p>
@@ -70,7 +70,7 @@ const HomeScreen = () => {
                   </div>
             </div>
             <h1 className='text-lg text-center'>DỄ DÀNG ĐẶT XE TRÊN WEBSITE</h1>
-            <img src={Quytrinh} className='pb-6 m-auto ml-20'/>
+            <img src={Quytrinh} className='pb-6 m-auto ml-20' alt='' />
          </div>
          <RoutePopular/>
          <OutstandingOffer/>

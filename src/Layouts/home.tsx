@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
-import { Header, SiderBar, Footer } from '@components'
-import { useRoot } from '@hooks'
+import { Header, Footer } from '@components'
 
 const Wrapper: any = styled.div`
   overflow: auto;
@@ -28,7 +27,6 @@ const Content = styled.div`
 `
 
 const HomeLayout = ({ children }: any) => {
-  const { sidebarCompact } = useRoot()
   return (
     <Wrapper >
       <Header />

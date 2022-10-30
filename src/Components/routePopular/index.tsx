@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react'
+
 import styled from 'styled-components'
 import SwipeSliders from "@components/SwipeSliders";
 import "slick-carousel/slick/slick.css";

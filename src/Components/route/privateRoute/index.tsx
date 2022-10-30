@@ -27,15 +27,10 @@ function PrivateRoute({
   return (
     <Route
       {...rest}
-      render={(props: any) => (accessible ? (
+      render={(props: any) => (
         <Layout>
           <Component {...props} />
-        </Layout>
-      ) : (
-        <Redirect
-          to={{ pathname: '/login', state: {} }}
-        />
-      ))}
+        </Layout>)}
     />
   )
 }

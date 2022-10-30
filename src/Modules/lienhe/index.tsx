@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react'
-
-import { E_LEARNING_LOGO } from '@assets'
 import { Wrapper } from './styled'
 
 const LienheScreen = () => (
@@ -14,7 +12,7 @@ const LienheScreen = () => (
           <p className='text-base mt-10'>Bạn có thể liên hệ với tôi bằng những cách sau:</p>
           <div className="w-3/5 h-16 rounded-lg my-0 border-2 flex mt-10 hover:bg-gray-100 cursor-pointer">
               <div className='my-auto mx-8'>
-                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/phone.svg"/>
+                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/phone.svg" alt=''/>
               </div>
               <div className='my-auto '>
                 <p className=' mb-1'>+ 84 526 368 554</p>
@@ -22,7 +20,7 @@ const LienheScreen = () => (
           </div>
           <div className="w-3/5 h-16 rounded-lg mt-4 border-2 flex hover:bg-gray-100 cursor-pointer">
               <div className='my-auto mx-8'>
-                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/mail.svg"/>
+                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/mail.svg" alt=''/>
               </div>
               <div className='my-auto '>
                 <p className=' mb-1'>pbl6@gmail.com</p>
@@ -30,7 +28,7 @@ const LienheScreen = () => (
           </div>
           <div className="w-3/5 h-16 rounded-lg mt-4 border-2 flex hover:bg-gray-100 cursor-pointer">
               <div className='my-auto mx-8'>
-                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/pin.svg"/>
+                <img src="https://static.vexere.com/webnx/prod/img/bms-vexere/pin.svg" alt=''/>
               </div>
               <div className='my-auto '>
                 <p className=' mb-1'>BKDN</p>

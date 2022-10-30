@@ -1,6 +1,5 @@
 import { USER_ROLE } from '@constants/auth'
 import HomeLayout from '@layouts/home'
-import BlankLayout from '@layouts/blank'
 
 import HomeScreen from '@modules/home'
 import TintucScreen from '@modules/tintuc'

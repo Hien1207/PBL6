@@ -9,7 +9,7 @@ const WrapperFormItem = styled(Form.Item)`
   width: 100%;
   margin-bottom: 10px;
 
-  .ant-input {
+  .label_required {
     min-height: 38px;
     border-radius: 4px;
   }

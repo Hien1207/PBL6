@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import i18next from '@i18n'
-import { Dropdown, Menu } from 'antd'
+import { Menu } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { HomeOutlined } from '@ant-design/icons'
 import { items } from "./item";
@@ -11,7 +10,6 @@ import { useAuth } from '@hooks'
 import { USER_URL, SIGNAL_TYPE } from '@constants'
 import { USER_ROLE } from '@constants/auth'
 import { Link } from "react-router-dom";
-import NavList from '@components/Nav-list'
 
 const Wrapper = styled.header`
   width: 100%;

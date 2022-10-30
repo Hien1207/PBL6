@@ -7,7 +7,7 @@ import { Wrapper } from './styled'
 
 const GioithieuScreen = () => (
   <Wrapper id="intro">
-    <img src={Gioithieu} className="w-full h-[28rem] ml-[-5px]"/>
+    <img src={Gioithieu} className="w-full h-[28rem] ml-[-5px]"  alt='' />
     <div className='w-11/12 m-auto text-center '>
        <h1 className='font-bold text-4xl mt-32  color'>Chúng tôi có thể làm gì?</h1>
        <p className='text-2xl font-bold'>Góp phần cho hành trình của bạn hạnh phúc hơn</p>

@@ -1,14 +1,6 @@
 import {
   HistoryOutlined,
-  RobotOutlined,
-  QuestionCircleOutlined,
-  BookOutlined,
-  ReadOutlined,
-  TagsOutlined,
   TagOutlined,
-  ProfileOutlined,
-  FileDoneOutlined,
-  ContainerOutlined,
   TeamOutlined,
   CloudUploadOutlined
 } from '@ant-design/icons'
@@ -19,13 +11,10 @@ import {
   ICON_USER,
   ICON_USERS,
   ICON_LIBRARY,
-  ICON_COURSE_RESULT,
-  ICON_PEN_TOOL,
   ICON_QUESTION,
   ICON_SEND,
   ICON_SETTING_MENU,
   ICON_GROUP_MENU,
-  FOLDER_ICON
 } from '@assets'
 import { USER_ROLE } from '@constants/auth'
 
