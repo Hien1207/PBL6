@@ -55,10 +55,12 @@
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
+    "react-seat-picker": "^1.5.3",
     "react-select": "^4.3.1",
     "react-slick": "^0.29.0",
     "react-sortable-hoc": "^2.0.0",
     "react-toastify": "^7.0.4",
+    "react-tooltip": "^4.4.3",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.5",
@@ -137,18 +139,5 @@
   },
   "resolutions": {
     "styled-components": "^5"
-  },
-  "description": "https://bookingtickets.netlify.app/",
-  "main": "postcss.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hien1207/PBL6.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Hien1207/PBL6/issues"
-  },
-  "homepage": "https://github.com/Hien1207/PBL6#readme"
+  }
 }

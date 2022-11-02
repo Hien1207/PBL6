@@ -1,15 +1,13 @@
 import styled from 'styled-components'
 import { items } from "./item";
 import { useState } from 'react'
-import Image from './image'
-import Evaluate from './evaluate';
-import Point from './point';
-import Policy from './policy';
-import Utilites from './utilities';
 import { FC } from 'react';
+import Place from './place'
+import Infor from './infor'
+import Pay from './pay'
 
 interface Prop{
-  isClickInfor: boolean; 
+  isClickBook: boolean; 
 }
 const Wrapper = styled.div`
     border-top: 1px solid rgb(192, 192, 192);
@@ -35,31 +33,19 @@ const Wrapper = styled.div`
     }
 `
 
-const InforDetail:FC<Prop> = ({isClickInfor}) => {
+const BookTickets:FC<Prop> = ({isClickBook}) => {
   const [list, setList] = useState(items);
-  const handleClick = (item: any) => {
-			const newList = list.map((_item: any) => {
-				if (_item.id === item.id) {
-					return { ..._item, isActive: true };
-				} else {
-					return { ..._item, isActive: false };
-				}
-			});
-			setList(newList);
-	};
   return (
-    <Wrapper className={`${isClickInfor ? 'block' : 'hidden'}`}>
-       <div className='mt-4 ml-20 '>
+    <Wrapper className={`${isClickBook ? 'block' : 'hidden'}`}>
+       <div className='mt-4 ml-24 '>
          <ul className='flex mb-0'>
           {list.map((item: any, index: any) => {
             let classStyles2 = "";
             if (item?.isActive) classStyles2 = "activeNav";
             return (
-              <li key={index} className={`dark:text-slate-700 mr-14 text-base  ${classStyles2}`}>
+              <li key={index} className={`dark:text-slate-700 mr-32 text-base  ${classStyles2}`}>
                 <div
-                  className="cursor-pointer font-medium"
-                  onClick={() => handleClick(item)}
-                >
+                  className="cursor-pointer font-medium" >
                   {item.name}
                 </div>
               </li>
@@ -69,19 +55,13 @@ const InforDetail:FC<Prop> = ({isClickInfor}) => {
         <div className='line'></div>
         <div>
 						{list[0].isActive && (
-							<Image  />
+							<Place list={list} setList={setList} />
 						)}
 						{list[1].isActive && (
-							<Utilites/>
+							<Infor list={list} setList={setList}/>
 						)}
 						{list[2].isActive && (
-							<Point  />
-						)}
-						{list[3].isActive && (
-							<Policy  />
-						)}
-						{list[4].isActive && (
-							<Evaluate  />
+							<Pay  list={list} setList={setList} />
 						)}
 					</div>
        </div>
@@ -89,4 +69,4 @@ const InforDetail:FC<Prop> = ({isClickInfor}) => {
   )
 }
 
-export default InforDetail
+export default BookTickets

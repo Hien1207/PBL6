@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
       box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 4px;
 		  border-radius: 4px;
       .main{
-        padding: 1.5rem 3rem;
+        padding: 1.5rem 3rem 0rem;
         .bt-detail{
           width: 120px;
           height: 30px;
@@ -36,6 +36,23 @@ export const Wrapper = styled.div`
           display: flex;
           align-items: center;
           color: #FFFFFF;
+        }
+        .bt-detail-close{
+          width: 120px;
+          height: 30px;
+          padding: 17px;
+          margin-left: -15px;
+          padding-left: 39px;
+          background:rgb(192, 192, 192);
+          box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+          font-family: 'K2D';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 23px;
+          display: flex;
+          align-items: center;
+          color: black;
         }
       }
     }

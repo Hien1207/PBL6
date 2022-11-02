@@ -65,7 +65,7 @@ const HomeScreen = () => {
                      <div className='my-auto ml-8 mr-1'>
                         <img src={ICON_Search} alt='' />
                      </div>
-                     <div className='my-auto w-32 '>
+                     <div className='my-auto w-32 cursor-pointer '>
                         <Link to='./booking'>
                            <p className='text-white mb-1 '>Tìm chuyến</p>
                         </Link>

@@ -7,10 +7,12 @@ import { Wrapper } from './styled'
 import DatePicker from "react-datepicker";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import {InforDetail} from '@components'
+import {InforDetail, BookTickets} from '@components'
 
 const BookingScreen = () => {
    const [startDate, setStartDate] = useState(new Date());
+   const [isClickInfor, setIsClickInfor] = useState(false);
+   const [isClickBook, setIsClickBook] = useState(false);
    return (
       <>
       <Wrapper id="intro" className='bg-white'>
@@ -64,7 +66,7 @@ const BookingScreen = () => {
                      <div className='my-auto ml-8 mr-1'>
                         <img src={ICON_Search} alt='' />
                      </div>
-                     <div className='my-auto w-32 '>
+                     <div className='my-auto w-32 cursor-pointer'>
                         <p className='text-white mb-1 '>Tìm chuyến</p>
                      </div>
                   </div>
@@ -80,13 +82,20 @@ const BookingScreen = () => {
             <div className='route'>
                 <div className='main flex '>
                    <div className='flex w-1/5 mr-6'>
-                      <img className='w-[28px] h-[28px] mr-4' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmcVyV_1ANkrz2-grItqC5mmWqlCw19FDKw&usqp=CAU" alt='' />
-                      <p className='font-bold text-lg'>21:00</p>
+                      <img className='w-[28px] h-[28px] mr-4 mt-1' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmcVyV_1ANkrz2-grItqC5mmWqlCw19FDKw&usqp=CAU" alt='' />
+                      <p className='font-bold text-lg'>21:00 <br/> | <br/> 21:40</p>
                    </div>
                    <div className='w-1/5 block mr-14'>
                        <p className='font-bold text-[17px] mb-0'>Tân Kim Chi</p>
-                       <p className='text-[12px] underline text-sky-500 flex cursor-pointer'>Thông tin chi tiết
-                          <img className='w-[14px] ml-1' src="https://icon-library.com/images/arrow-down-icon-png/arrow-down-icon-png-3.jpg" alt='' />
+                       <p className='text-[12px] underline text-sky-500 flex cursor-pointer' onClick={()=> setIsClickInfor(!isClickInfor)}>Thông tin chi tiết
+                       {!isClickInfor ? 
+                        <>
+                           <img className='w-[14px] ml-1' src="https://icon-library.com/images/arrow-down-icon-png/arrow-down-icon-png-3.jpg" alt='' />
+                        </> 
+                        : 
+                        <>
+                           <img className='w-[14px] ml-1 rotate-180' src="https://icon-library.com/images/arrow-down-icon-png/arrow-down-icon-png-3.jpg" alt='' />
+                        </>}
                        </p>
                    </div>
                    <div className='w-1/5 mr-20'>
@@ -94,11 +103,19 @@ const BookingScreen = () => {
                    </div>
                    <div className='w-1/5 block '>
                       <p className='font-bold text-[17px] mb-0 text-[#4457FF] pl-[22px]'>400.000đ
-                         <button className='bt-detail' >Chọn tuyến</button>
+                        {!isClickBook ? 
+                        <>
+                          <button className='bt-detail' onClick={()=> setIsClickBook(!isClickBook)} >Chọn tuyến</button>
+                        </> 
+                        : 
+                        <>
+                          <button className='bt-detail-close' onClick={()=> setIsClickBook(!isClickBook)} >Đóng</button>
+                        </>}
                       </p>
                    </div>
                 </div>
-                <InforDetail />
+                <InforDetail isClickInfor={isClickInfor}/>
+                <BookTickets isClickBook={isClickBook}/>
             </div>
          </div>
       </Wrapper>
