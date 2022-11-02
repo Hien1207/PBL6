@@ -21,7 +21,7 @@ const ConnectionPlatform = () => {
 		<div className="flex py-[5px] justify-center scroll" >	
 		    <div className="w-1/4  rounded-lg mr-2 py-2 item_co flex">
                      <div className='mx-2'>
-                        <img src="https://storage.googleapis.com/fe-production/svgIcon/bus-car-icon.svg"/>
+                        <img src="https://storage.googleapis.com/fe-production/svgIcon/bus-car-icon.svg" alt='' />
                      </div>
                      <div className='w-4/5 pr-1'>
                         <p className='text-base font-bold mb-1'>2000+ nhà xe chất lượng cao</p>
@@ -30,7 +30,7 @@ const ConnectionPlatform = () => {
             </div>
 			<div className="w-1/4  rounded-lg mr-2 py-2 item_co flex">
                      <div className='mx-2'>
-                        <img src="https://storage.googleapis.com/fe-production/svgIcon/yellow-ticket-icon.svg"/>
+                        <img src="https://storage.googleapis.com/fe-production/svgIcon/yellow-ticket-icon.svg" alt='' />
                      </div>
                      <div className='w-4/5 pr-1'>
                         <p className='text-base font-bold mb-1'>Đặt vé dễ dàng</p>
@@ -39,7 +39,7 @@ const ConnectionPlatform = () => {
             </div>
 			<div className="w-1/4  rounded-lg mr-2 py-2 item_co flex">
                      <div className='mx-2'>
-                        <img src="https://storage.googleapis.com/fe-production/svgIcon/completement-icon.svg"/>
+                        <img src="https://storage.googleapis.com/fe-production/svgIcon/completement-icon.svg" alt='' />
                      </div>
                      <div className='w-4/5 pr-1'>
                         <p className='text-base font-bold mb-1'>Đảm bảo có vé</p>
@@ -48,7 +48,7 @@ const ConnectionPlatform = () => {
             </div>
 			<div className="w-1/4  rounded-lg py-2 item_co flex">
                      <div className='mx-2'>
-                        <img src="https://storage.googleapis.com/fe-production/svgIcon/coupon-icon.svg"/>
+                        <img src="https://storage.googleapis.com/fe-production/svgIcon/coupon-icon.svg" alt='' />
                      </div>
                      <div className='w-4/5 pr-1'>
                         <p className='text-base font-bold mb-1'>Nhiều ưu đãi</p>

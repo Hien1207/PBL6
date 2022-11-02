@@ -88,7 +88,7 @@
     "@commitlint/cli": "^13.2.1",
     "@commitlint/config-conventional": "^13.2.0",
     "@types/axios": "^0.14.0",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.10",
@@ -97,6 +97,7 @@
     "lint-staged": "^11.2.3",
     "postcss": "^8.4.18",
     "prettier": "^2.4.1",
+    "react-carousel-minimal": "^1.4.1",
     "tailwindcss": "^3.2.1"
   },
   "lint-staged": {
@@ -136,5 +137,18 @@
   },
   "resolutions": {
     "styled-components": "^5"
-  }
+  },
+  "description": "https://bookingtickets.netlify.app/",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hien1207/PBL6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hien1207/PBL6/issues"
+  },
+  "homepage": "https://github.com/Hien1207/PBL6#readme"
 }

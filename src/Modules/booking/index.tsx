@@ -2,15 +2,14 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react'
 
-import { Background,ICON_Locate,ICON_Calendar, ICON_Search ,Quytrinh} from '@assets'
+import { Background,ICON_Locate,ICON_Calendar, ICON_Search } from '@assets'
 import { Wrapper } from './styled'
 import DatePicker from "react-datepicker";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
-import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
-import { Link } from "react-router-dom";
+import {InforDetail} from '@components'
 
-const HomeScreen = () => {
+const BookingScreen = () => {
    const [startDate, setStartDate] = useState(new Date());
    return (
       <>
@@ -66,21 +65,44 @@ const HomeScreen = () => {
                         <img src={ICON_Search} alt='' />
                      </div>
                      <div className='my-auto w-32 '>
-                        <Link to='./booking'>
-                           <p className='text-white mb-1 '>Tìm chuyến</p>
-                        </Link>
-                        
+                        <p className='text-white mb-1 '>Tìm chuyến</p>
                      </div>
                   </div>
             </div>
-            <h1 className='text-lg text-center'>DỄ DÀNG ĐẶT XE TRÊN WEBSITE</h1>
-            <img src={Quytrinh} className='pb-6 m-auto ml-20' alt='' />
+            <h1 className='text-[16px] ml-6 py-4'>Đặt vé xe đi Hà Nội từ Đà Nẵng chất lượng cao và giá vé ưu đãi nhất: 12 chuyến</h1>
+            <div className='flex ml-6 text-[15px]'>
+                <p className='mr-16 font-bold'>Sắp xếp theo :</p>
+                <p className='mr-16'>Giờ đi sớm nhất</p>
+                <p className='mr-16'>Giờ đi muộn nhất</p>
+                <p className='mr-16'>Giá tăng dần</p>
+                <p>Giá giảm dần</p>
+            </div>
+            <div className='route'>
+                <div className='main flex '>
+                   <div className='flex w-1/5 mr-6'>
+                      <img className='w-[28px] h-[28px] mr-4' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmcVyV_1ANkrz2-grItqC5mmWqlCw19FDKw&usqp=CAU" alt='' />
+                      <p className='font-bold text-lg'>21:00</p>
+                   </div>
+                   <div className='w-1/5 block mr-14'>
+                       <p className='font-bold text-[17px] mb-0'>Tân Kim Chi</p>
+                       <p className='text-[12px] underline text-sky-500 flex cursor-pointer'>Thông tin chi tiết
+                          <img className='w-[14px] ml-1' src="https://icon-library.com/images/arrow-down-icon-png/arrow-down-icon-png-3.jpg" alt='' />
+                       </p>
+                   </div>
+                   <div className='w-1/5 mr-20'>
+                      <p className='font-bold text-[17px] mb-0 '>Còn 10 chỗ trống</p>
+                   </div>
+                   <div className='w-1/5 block '>
+                      <p className='font-bold text-[17px] mb-0 text-[#4457FF] pl-[22px]'>400.000đ
+                         <button className='bt-detail' >Chọn tuyến</button>
+                      </p>
+                   </div>
+                </div>
+                <InforDetail />
+            </div>
          </div>
-         <RoutePopular/>
-         <OutstandingOffer/>
-         <ConnectionPlatform />
       </Wrapper>
       </>
    )
 }
-export default HomeScreen
+export default BookingScreen

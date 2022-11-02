@@ -139,7 +139,6 @@ const Wrapper = styled.header`
 `
 
 const Header = () => {
-  const { i18n: { language } } = useTranslation()
   const { profile } = useAuth()
   const role = profile?.role
   
@@ -154,7 +153,6 @@ const Header = () => {
 			});
 			setList(newList);
 	};
-  console.log(list)
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
 
@@ -163,23 +161,23 @@ const Header = () => {
 
 
 
-  const dropdownMenu = (
-    <Menu>
-      {role === USER_ROLE.COMPANY_ADMIN && (
-      <>
-        <Menu.Item key="0" onClick={() => window.location.replace(USER_URL)}>
-          <HomeOutlined />
-          <span>&nbsp;User page</span>
-        </Menu.Item>
-        <Menu.Divider />
-      </>
-      )}
-      <Menu.Item key="1" onClick={handleLogout}>
-        <LOGOUT_ICON className="logout-icon" />
-        <span>&nbsp;Logout</span>
-      </Menu.Item>
-    </Menu>
-  )
+  // const dropdownMenu = (
+  //   <Menu>
+  //     {role === USER_ROLE.COMPANY_ADMIN && (
+  //     <>
+  //       <Menu.Item key="0" onClick={() => window.location.replace(USER_URL)}>
+  //         <HomeOutlined />
+  //         <span>&nbsp;User page</span>
+  //       </Menu.Item>
+  //       <Menu.Divider />
+  //     </>
+  //     )}
+  //     <Menu.Item key="1" onClick={handleLogout}>
+  //       <LOGOUT_ICON className="logout-icon" />
+  //       <span>&nbsp;Logout</span>
+  //     </Menu.Item>
+  //   </Menu>
+  // )
 
   return (
     <Wrapper className='main'>
@@ -193,7 +191,7 @@ const Header = () => {
               {/* <NavList isCenter={true} items={list} event={handleClick} /> */}
               <div >
                 <ul className='flex mb-0'>
-									{list?.map((item, index) =>(
+									{list?.map((item: any, index: any) =>(
 										<li
 											className={`dark:text-slate-400 mr-10 text-base }`}                     
 											key={index}

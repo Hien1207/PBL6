@@ -10,6 +10,7 @@ import RoutePopular from './routePopular'
 import OutstandingOffer from './outstandingOffer'
 import ConnectionPlatform from './connectionPlatform'
 import NavList from './Nav-list'
+import InforDetail from './inforDetail'
 
 import {
   FormRadio,
@@ -55,4 +56,5 @@ export {
   OutstandingOffer,
   ConnectionPlatform,
   NavList,
+  InforDetail
 }
