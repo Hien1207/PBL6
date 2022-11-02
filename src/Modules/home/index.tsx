@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
+import { Link } from "react-router-dom";
 
 const HomeScreen = () => {
    const [startDate, setStartDate] = useState(new Date());
@@ -64,8 +65,11 @@ const HomeScreen = () => {
                      <div className='my-auto ml-8 mr-1'>
                         <img src={ICON_Search} alt='' />
                      </div>
-                     <div className='my-auto w-32 '>
-                        <p className='text-white mb-1 '>Tìm chuyến</p>
+                     <div className='my-auto w-32 cursor-pointer '>
+                        <Link to='./booking'>
+                           <p className='text-white mb-1 '>Tìm chuyến</p>
+                        </Link>
+                        
                      </div>
                   </div>
             </div>

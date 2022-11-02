@@ -6,6 +6,7 @@ import TintucScreen from '@modules/tintuc'
 import GioithieuScreen from '@modules/gioithieu'
 import LienheScreen from '@modules/lienhe'
 import DanhgiaScreen from '@modules/danhgia'
+import BookingScreen from '@modules/booking'
 
 const RoutesName = {
   HOME: '/',
@@ -13,6 +14,7 @@ const RoutesName = {
   GIOITHIEU : '/gioithieu',
   LIENHE : '/lienhe',
   DANHGIA : '/danhgia',
+  BOOKING : '/booking',
 }
 
 export const ROUTES = [
@@ -20,6 +22,13 @@ export const ROUTES = [
   {
     path: RoutesName.HOME,
     component: HomeScreen,
+    layout: HomeLayout,
+    rules: [USER_ROLE.ADMIN],
+    exact: true,
+  },
+  {
+    path: RoutesName.BOOKING,
+    component: BookingScreen,
     layout: HomeLayout,
     rules: [USER_ROLE.ADMIN],
     exact: true,

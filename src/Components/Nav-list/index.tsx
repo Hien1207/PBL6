@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
-import { Link ,Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const NavList = ({
 	isCenter = false,
 	items = [],
@@ -26,10 +26,6 @@ const NavList = ({
 			event(item);
 		}
 	};
-
-	const handleClicks =(path : any) => {
-		history.push(path);
-	  }
 	return (
 		<div className={classStyles}>
 			<ul className="flex flex-row items-center m-0 ml-2 overflow-x-auto lst-nav md:justify-center">
