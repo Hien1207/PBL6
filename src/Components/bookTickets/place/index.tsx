@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Seats from "./seat";
+
 const Wrapper = styled.div`
   .left{
     line-height: 1.5;
@@ -47,10 +48,12 @@ const Place = ( {list ,setList }:any) => {
     });
     setList(newList);
 };
+
+
   return (
     <Wrapper>
       <div className="">
-        <Seats />
+          <Seats /> 
        <div className='border-b-2 w-[118%] ml-[-6rem]'></div>
        <div className='w-[118%] ml-[-6rem] mt-6 flex'>
              <div className='w-1/2'>

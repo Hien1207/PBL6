@@ -1,5 +1,6 @@
 export {
   login,
+  register,
   getProfile
 } from './auth.api'
 

@@ -48,11 +48,11 @@ export default class Seats extends Component {
           id: 3,
           number: "3",
           isSelected: this.state.props,
-          isReserved: true
+          isReserved: false
         },
-        { id: 4, number: "4", isSelected: this.state.props, isReserved: true },
+        { id: 4, number: "4", isSelected: this.state.props, isReserved: false },
 
-        { id: 5, number: 5, isSelected: this.state.props, isReserved: true }
+        { id: 5, number: 5, isSelected: this.state.props, isReserved: false }
       ],
       [
         {
@@ -75,22 +75,22 @@ export default class Seats extends Component {
         { id: 13, number: 3, isSelected: this.state.props, isReserved: true },
         { id: 14, number: 4, isSelected: this.state.props, isReserved: true },
 
-        { id: 15, number: 5, isSelected: this.state.props, isReserved: true }
+        { id: 15, number: 5, isSelected: this.state.props, isReserved: false }
       ],
       [
         { id: 16, number: 1, isSelected: this.state.props, isReserved: true },
-        { id: 17, number: 2, isSelected: this.state.props, isReserved: true },
+        { id: 17, number: 2, isSelected: this.state.props, isReserved: false },
         null,
         { id: 18, number: 3, isSelected: this.state.props, isReserved: true },
-        { id: 19, number: 4, isSelected: this.state.props, isReserved: true },
+        { id: 19, number: 4, isSelected: this.state.props, isReserved: false },
 
-        { id: 20, number: 5, isSelected: this.state.props, isReserved: true }
+        { id: 20, number: 5, isSelected: this.state.props, isReserved: false }
       ],
       [
-        { id: 21, number: 1, isReserved: true },
-        { id: 22, number: 2, isSelected: this.state.props, isReserved: true },
+        { id: 21, number: 1, isReserved: false },
+        { id: 22, number: 2, isSelected: this.state.props, isReserved: false },
         null,
-        { id: 23, number: 1, isReserved: true },
+        { id: 23, number: 1, isReserved: false },
         { id: 24, number: 2, isSelected: this.state.props, isReserved: true },
 
         { id: 25, number: 5, isSelected: this.state.props, isReserved: true }
@@ -105,7 +105,7 @@ export default class Seats extends Component {
             addSeatCallback={this.addSeatCallback}
             removeSeatCallback={this.removeSeatCallback}
             rows={rows}
-            maxReservableSeats={3}
+            maxReservableSeats={5}
             alpha
             visible
             selectedByDefault

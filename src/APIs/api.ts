@@ -9,7 +9,7 @@ import { BASE_API_URL } from '@constants'
 import { STORAGE, getLocalStorage } from '@utils'
 
 const singletonEnforcer = Symbol()
-const BASE_URL = `${BASE_API_URL}`
+const BASE_URL = `https://book-ticket-doan.herokuapp.com`
 class AxiosClient {
   axiosClient: any;
   static axiosClientInstance: AxiosClient

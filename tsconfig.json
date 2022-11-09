@@ -52,6 +52,8 @@
       "@type/*": ["src/Types/*"],
       "@utils": ["src/Utils"],
       "@utils/*": ["src/Utils/*"],
+      "@FireBase":["src/Firebase"],
+      "@FireBase/*":["src/Firebase"],
     }
   },
   "include": [
