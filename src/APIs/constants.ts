@@ -2,7 +2,8 @@ const END_POINT: any = {
   TEST_API: 'api/0.4/',
 
   // auth
-  LOGIN: '/v1/auth/login',
+  LOGIN: '/api/auth/login',
+  REGISTER : '/api/auth/register',
   PROFILE_USER: '/profile-user',
 
   // course

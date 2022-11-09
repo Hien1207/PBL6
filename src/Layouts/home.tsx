@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styled from 'styled-components'
-import { Header, Footer } from '@components'
+import { Header, Footer, ModalSignIn } from '@components'
+import {  useState } from "react";
 
 const Wrapper: any = styled.div`
   overflow: auto;
@@ -27,14 +28,20 @@ const Content = styled.div`
 `
 
 const HomeLayout = ({ children }: any) => {
+  const [isShow, setIsShow] = useState(false);
   return (
     <Wrapper >
-      <Header />
+      <Header setIsShow = {setIsShow}/>
       <Main>
         <Content>
           {children}
         </Content>
       </Main>
+      {isShow && (
+         <ModalSignIn
+          event={() => setIsShow(false)}
+       />
+      )}
       <Footer />
     </Wrapper>
   )

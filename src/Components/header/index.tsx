@@ -10,6 +10,7 @@ import { useAuth } from '@hooks'
 import { USER_URL, SIGNAL_TYPE } from '@constants'
 import { USER_ROLE } from '@constants/auth'
 import { Link } from "react-router-dom";
+import { FC } from 'react';
 
 const Wrapper = styled.header`
   width: 100%;
@@ -137,8 +138,10 @@ const Wrapper = styled.header`
   }
 
 `
-
-const Header = () => {
+interface Prop{
+  setIsShow: any; 
+}
+const Header:FC<Prop> = ({setIsShow}) => {
   const { profile } = useAuth()
   const role = profile?.role
   
@@ -210,7 +213,7 @@ const Header = () => {
               <div className="col user-info" role="presentation">
                 <button className="bg-sky-700 w-full flex font-semibold h-8 items-center justify-center  px-3 rounded-md text-white text-sm  fol">
                   <img src="https://storage.googleapis.com/fe-production/images/Auth/account-circle-fill.svg"/>
-                  <span className='mx-2'>Đăng nhập</span> 
+                  <span className='mx-2' onClick={() => setIsShow(true)}>Đăng nhập</span> 
                 </button>
                 {/* <Dropdown overlay={dropdownMenu} trigger={['click']}>
                   <a href="true" className="ant-dropdown-link" style={{ display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}>

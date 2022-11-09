@@ -12,6 +12,7 @@ import ConnectionPlatform from './connectionPlatform'
 import NavList from './Nav-list'
 import InforDetail from './inforDetail'
 import BookTickets from './bookTickets'
+import ModalSignIn from './modal'
 
 import {
   FormRadio,
@@ -58,5 +59,6 @@ export {
   ConnectionPlatform,
   NavList,
   InforDetail,
-  BookTickets
+  BookTickets,
+  ModalSignIn
 }
