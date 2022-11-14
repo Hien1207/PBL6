@@ -1,11 +1,9 @@
 
 import { FunctionComponent } from 'react'
 import * as React from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
+import {useState,useEffect} from 'react'
 import styled from 'styled-components'
+import { login } from "@apis";
 const Wrapper = styled.div`
 
   input{
@@ -34,58 +32,128 @@ interface SignInProps {
 }
 
 const SignIn: FunctionComponent<SignInProps> = ({setIsCode})  => {
-  const [value, setValue] = React.useState('sdt');
-  const [isType, setIsType] = React.useState(true);
 
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+  const [dataLogin, setDataLogin] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [inValidData, setInValidData] = useState({
+    errusername: "",
+    errPassword: "",
+    errRequire: "",
+  });
+
+  useEffect(() => {
+    if (
+      dataLogin.username &&
+      dataLogin.password 
+    ) {
+      setInValidData({
+        ...inValidData,
+        errRequire: "",
+      });
+    }
+  }, [
+    dataLogin.password,
+    dataLogin.username
+  ]);
+
+  const onSubmitRegister = () => {
+    if (!dataLogin.username || !dataLogin.password) {
+      setInValidData({
+        ...inValidData,
+        errRequire: "Vui lòng điền thông tin!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errRequire: "",
+      });
+       login(
+        {
+          username: dataLogin.username,
+          password: dataLogin.password,
+        }
+      );
+    }
   };
+
+  const handleValidUsername = (val :any) => {
+     if (!val) {
+      setInValidData({
+        ...inValidData,
+        errusername: "Vui lòng điền số điện thoại hoặc email!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errusername: "",
+      });
+    }
+  };
+  const handleValidPassword = (val :any) => {
+    if (!val) {
+      setInValidData({
+        ...inValidData,
+        errPassword: "Vui lòng điền mật khẩu",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errPassword: "",
+      });
+    }
+  };
+
 	return (
     <Wrapper>
         <h1 className='font-bold text-[15px] text-center'>Đăng nhập</h1>
-        <div className=' mt-[-20px] '>
-            <FormControl>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                value={value}
-                onChange={handleChange}
-                className='block'
-              >
-                <div className='flex'>
-                <FormControlLabel value="sdt" control={<Radio />} label="Số điện thoại"  onClick={() => setIsType(true)}/>
-                <FormControlLabel value="email" control={<Radio />} label="Email" onClick={() => setIsType(false)} />
-                </div>
-              </RadioGroup>
-            </FormControl>
+        <div className='mt-[-5px]'>
+            <h4 className='font-bold mb-0'>Số điện thoại hoặc email<span className='text-red-600'>*</span></h4>
+            <input type="text" className='mt-[-15px]' placeholder="" 
+                maxLength={11}
+                onChange={(e : any) => {
+                  setDataLogin({
+                    ...dataLogin,
+                    username: e.target.value,
+                  })
+                  handleValidUsername(e.target.value);
+              }}/>
+              {inValidData.errusername ? (
+                  <p className='text-red-600 mb-[-15px] text-[10px]' > {inValidData.errusername}</p>
+                ) : (
+                  ""
+              )}
         </div>
-        {isType ? 
-          <>
-           <div className='mt-[-5px]'>
-            <h4 className='font-bold mb-0'>Số điện thoại<span className='text-red-600'>*</span></h4>
-            <input type="text" className='mt-[-15px]' placeholder=""/>
-          </div></>
-          :
-          <>
-           <div className='mt-[-5px]'>
-            <h4 className='font-bold mb-0'>Email<span className='text-red-600'>*</span></h4>
-            <input type="text" className='mt-[-15px]' placeholder=""/>
-          </div></>
-          }
       <div>
         <h4 className='font-bold mb-0'>Mật khẩu <span className='text-red-600'>*</span></h4>
-        <input type="text" className='mt-[-15px]' />
+        <input type="password" className='mt-[-15px]' 
+          value={dataLogin.password}
+          onChange={(e : any) => {
+            setDataLogin({
+              ...dataLogin,
+              password:  e.target.value,
+          })
+          handleValidPassword(e.target.value);
+        }}/>
+        {inValidData.errPassword ? (
+              <p className='text-red-600 mb-[-15px] text-[10px]'> {inValidData.errPassword}</p>
+          ) : (
+              ""
+        )}
       </div>
-      <div>
-        <h4 className='font-bold mb-0'>Nhập lại mật khẩu<span className='text-red-600'>*</span></h4>
-        <input type="password" className='mt-[-15px]' />
-      </div>
+      {inValidData.errRequire ? (
+            <p className='text-red-600 mb-0 mb-[-15px] text-[10px]' > {inValidData.errRequire}</p>
+          ) : (
+            ""
+          )}
       <div className='mt-4'>
         <button className=" bg-sky-700 w-full flex font-semibold h-10 items-center justify-center rounded-md text-white text-sm  fol"
-          onClick={()=> setIsCode(true)}
+             onClick={() => onSubmitRegister()}
         >
-            Tiếp tục
+            Đăng nhập
         </button>
       </div>
     </Wrapper>

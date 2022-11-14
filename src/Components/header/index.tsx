@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
-import { Menu } from 'antd'
+import { Menu , Dropdown} from 'antd'
 import { useTranslation } from 'react-i18next'
 import { HomeOutlined } from '@ant-design/icons'
 import { items } from "./item";
 import { LOGOUT_ICON, LOGO_ICON } from '@assets'
-import { removeLocalStorage, STORAGE } from '@utils'
+import { getLocalStorage, removeLocalStorage, STORAGE } from '@utils'
 import { useAuth } from '@hooks'
 import { USER_URL, SIGNAL_TYPE } from '@constants'
 import { USER_ROLE } from '@constants/auth'
@@ -156,31 +156,47 @@ const Header:FC<Prop> = ({setIsShow}) => {
 			});
 			setList(newList);
 	};
+
+  const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
+  const [isLoggedIn, setisLoggedIN] = useState(false) 
+  useEffect(() => {
+     if (token){
+         setisLoggedIN(true)
+     }
+  },[token])
+
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
-
-    window.location.replace(`${USER_URL}?signal=${SIGNAL_TYPE.LOGOUT}`)
+    window.location.reload()
   }, [])
 
 
 
-  // const dropdownMenu = (
-  //   <Menu>
-  //     {role === USER_ROLE.COMPANY_ADMIN && (
-  //     <>
-  //       <Menu.Item key="0" onClick={() => window.location.replace(USER_URL)}>
-  //         <HomeOutlined />
-  //         <span>&nbsp;User page</span>
-  //       </Menu.Item>
-  //       <Menu.Divider />
-  //     </>
-  //     )}
-  //     <Menu.Item key="1" onClick={handleLogout}>
-  //       <LOGOUT_ICON className="logout-icon" />
-  //       <span>&nbsp;Logout</span>
-  //     </Menu.Item>
-  //   </Menu>
-  // )
+  const dropdownMenu = (
+    <Menu>
+      {role === USER_ROLE.COMPANY_ADMIN && (
+      <>
+        <Menu.Item key="0" onClick={() => window.location.replace(USER_URL)}>
+          <HomeOutlined />
+          <span>&nbsp;User page</span>
+        </Menu.Item>
+        <Menu.Divider />
+      </>
+      )}
+      <Menu.Item key="1" >
+        <img src='https://storage.googleapis.com/fe-production/images/Auth/account-circle.svg'   alt=''/>
+        <span>&nbsp;Thông tin tài khoản</span>
+      </Menu.Item>
+      <Menu.Item key="2" >
+        <img src='	https://storage.googleapis.com/fe-production/images/ticket.svg'   alt=''/>
+        <span>&nbsp;Vé của tôi</span>
+      </Menu.Item>
+      <Menu.Item key="3" onClick={handleLogout}>
+      <img src='https://storage.googleapis.com/fe-production/images/Auth/logout.svg'   alt=''/>
+        <span>&nbsp;Đăng xuất</span>
+      </Menu.Item>
+    </Menu>
+  )
 
   return (
     <Wrapper className='main'>
@@ -213,21 +229,26 @@ const Header:FC<Prop> = ({setIsShow}) => {
               <div className="col user-info" role="presentation">
                 <button className="bg-sky-700 w-full flex font-semibold h-8 items-center justify-center  px-3 rounded-md text-white text-sm  fol">
                   <img src="https://storage.googleapis.com/fe-production/images/Auth/account-circle-fill.svg"/>
-                  <span className='mx-2' onClick={() => setIsShow(true)}>Đăng nhập</span> 
+                   {isLoggedIn ? 
+                   <>
+                        <Dropdown overlay={dropdownMenu} trigger={['click']}>
+                          <a href="true" className="ant-dropdown-link" style={{ display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}>
+                            <div className="me-3">
+                              <div className="text-end">
+                                <div className="text-white ml-2">{profile?.name || 'Hiiii'}</div>
+                              </div>
+                            </div>
+                          </a>
+                        </Dropdown>
+                       <img className='w-[14px] ml-1' src="https://icon-library.com/images/arrow-down-icon-png/arrow-down-icon-png-3.jpg" alt='' />
+                   </>
+                   :
+                   <>
+                      <span className='mx-2' onClick={() => setIsShow(true)} >Đăng nhập</span> 
+                   </> }
+                  
                 </button>
-                {/* <Dropdown overlay={dropdownMenu} trigger={['click']}>
-                  <a href="true" className="ant-dropdown-link" style={{ display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}>
-                    <div className="me-3">
-                      <div className="text-end">
-                        <div className="name">{profile?.nameKatakana || 'Hiiii'}</div>
-                        <div className="title"><small>Develop</small></div>
-                      </div>
-                    </div>
-                    <div className="position-relative">
-                      <img className="avatar rounded-circle bg-lo25-warning" src={profile?.avatar || 'https://facit-modern.omtanke.studio/static/media/wanna6.33be1958d20715345cc6.webp'} alt="Avatar" width="48" height="48" />
-                    </div>
-                  </a>
-                </Dropdown> */}
+             
               </div>
             </div>
           </div>

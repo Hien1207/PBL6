@@ -5,13 +5,27 @@ import React from 'react'
 import { Background,ICON_Locate,ICON_Calendar, ICON_Search ,Quytrinh} from '@assets'
 import { Wrapper } from './styled'
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
 import { Link } from "react-router-dom";
+import { getListLocation } from "@apis";
+import Select from "react-select";
 
 const HomeScreen = () => {
    const [startDate, setStartDate] = useState(new Date());
+   const [listLocation, setListLocation] = useState([]);
+   const [value, setValues] = useState([]);
+
+   useEffect(() => {
+      getListLocation(setListLocation);
+    }, []);
+
+    const updatedCountries = listLocation.map((country :any) => ({
+      label: country.nameStation,
+      value: country.id,
+    }));
+
    return (
       <>
       <Wrapper id="intro" className='bg-white'>
@@ -24,12 +38,17 @@ const HomeScreen = () => {
                      </div>
                      <div className='my-auto w-32'>
                         <p className='text-sky-600 mb-1'>Điểm đi</p>
-                        <input 
-                              type="text" 
-                              id="start" 
-                              name="start"
-                              className='w-full pr-2'  
-                              placeholder='Chọn điểm đi' />
+                        <Select
+                           id="country"
+                           name="country"
+                           label="country"
+                           className='w-full pr-2'
+                           placeholder='Chọn điểm đi'
+                           options={updatedCountries}
+                           onChange={(value) => {
+                              setValues(value);
+                           }}
+                     />
                      </div>
                   </div>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex">
@@ -38,12 +57,17 @@ const HomeScreen = () => {
                      </div>
                      <div className='my-auto w-32'>
                         <p className='text-sky-600 mb-1'>Điểm đến</p>
-                        <input 
-                              type="text" 
-                              id="start" 
-                              name="start"
-                              className='w-full pr-2'  
-                              placeholder='Chọn điểm đến' />
+                        <Select
+                           id="country"
+                           name="country"
+                           label="country"
+                           className='w-full pr-2'
+                           placeholder='Chọn điểm đến'
+                           options={updatedCountries}
+                           onChange={(value) => {
+                              setValues(value);
+                           }}
+                       />
                      </div>
                   </div>
                   <div className="w-1/5 h-20 rounded-lg m-6 item flex">

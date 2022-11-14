@@ -2,6 +2,7 @@ export const STORAGE = {
   LANGUAGE: 'LANGUAGE',
   USER_TOKEN: 'USER_TOKEN',
   USER_DATA: 'USER_DATA',
+  currentUser : 'currentUser'
 }
 
 export function getLocalStorage(key: any) {
