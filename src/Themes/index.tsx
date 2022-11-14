@@ -90,7 +90,7 @@ body {
 
 // antd custom
 .ant-dropdown-menu {
-    border-radius: 1rem;
+    width: 12rem;
     .ant-dropdown-menu-item {
       border-radius: 1rem;
       padding: 0.5rem;
@@ -217,5 +217,9 @@ body {
   .ant-popover-inner {
     border-radius: .75rem;
   }
+}
+
+.ant-dropdown{
+   left: 1157px !important;
 }
 `

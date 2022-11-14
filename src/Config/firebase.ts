@@ -10,7 +10,7 @@ const firebaseConfig = {
     appId: "1:876088938835:web:12c410250db5f5c13511a6"
 };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Cloud Messaging and get a reference to the service
 // const messaging = getMessaging(app);
@@ -39,4 +39,4 @@ const app = initializeApp(firebaseConfig);
 //     messaging
 // }
 
-export default app
+// export default app

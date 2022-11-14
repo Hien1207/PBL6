@@ -5,12 +5,8 @@ export {
 } from './auth.api'
 
 export {
-  getCourses,
-  getCourse,
-  createCourse,
-  editCourse,
-  deleteCourse
-} from './course.api'
+  getListLocation
+} from './route.api'
 
 export {
   checkExistFile,

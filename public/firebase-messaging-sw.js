@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: "1:876088938835:web:12c410250db5f5c13511a6"
 };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 // Retrieve firebase messaging
 const messaging = firebase.messaging();

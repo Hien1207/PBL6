@@ -1,6 +1,7 @@
 import AxiosClient from './api'
 import END_POINT from './constants'
 import axios from "axios";
+import { setLocalStorage, STORAGE } from '@utils'
 //@ts-ignore
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function login (Data) {
@@ -14,7 +15,14 @@ function login (Data) {
     })
     .then(async (data) => {
       try {
-        await AsyncStorage.setItem("accessToken", data.accessToken);
+        if (data.message) {
+         alert("Your username or password are incorrect");
+        } else {
+          await AsyncStorage.setItem("currentUser", JSON.stringify(data));
+          setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
+          setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
+          window.location.reload();
+        }
       } catch (e) {
         console.warn(e);
       }
@@ -35,8 +43,10 @@ function register (Data) {
     })
     .then(async (data) => {
       try {
-        await AsyncStorage.setItem("accessToken", data.accessToken);
-        // console.warn(data.accessToken)
+        await AsyncStorage.setItem("currentUser", JSON.stringify(data));
+        setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
+        setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
+        window.location.reload();
       } catch (e) {
         console.warn(e);
       }

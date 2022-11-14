@@ -2,8 +2,6 @@
 import { FunctionComponent , useState} from 'react'
 import SignIn from './signin'
 import SignUp from './signup'
-import Code from './code'
-import Infor from './infor'
 import styled from 'styled-components'
 const Wrapper = styled.div`
 	.modal{
@@ -45,36 +43,23 @@ const ModalSignIn: FunctionComponent<ModalSignInProps> = ({event}) => {
 		<div className="block items-center fixed z-[999] bg-[rgba(0,0,0,.45)] w-full h-full top-0 left-0">
 			<div className="block ml-[30%] mt-[10%] p-2 items-center leading-[42px] top-0 left-0 pb-8 w-2/5 modal bg-white">
 					<img src='https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/close-icon.png' className='w-[15px] cursor-pointer ml-[97%]' alt=''onClick={event}/>
-          {!isInfor ?
-           <>
-              {!isCode?
-              <>
-                  <div className='block mx-4'>
-                  {!isSignUp ? 
-                  <> <SignIn setIsCode={setIsCode} /></> 
-                  : <> <SignUp setIsCode={setIsCode} /> </>}
-                <p className='mt-2'>Bạn chưa có tài khoản ? 
-                   <a onClick={()=> setIsSignUp(!isSignUp)}>
-                   {!isSignUp ? 
-                    <> Đăng ký</>
-                    :
-                    <> Đăng nhập
-                    </>} </a>
-                </p>
-              </div>
-              </> 
-              :
-              <>
-                <div className='block mx-4'>
-                    <Code isSignUp={isSignUp} setIsInfor={setIsInfor}/>
-                </div>
-              </>}
-           </>
-           :<>
-             <Infor />
-           </>}
-         
-         
+      <div className='block mx-4'>
+          {!isSignUp ? 
+          <> <SignIn setIsCode={setIsCode} /></> 
+          : <> <SignUp setIsCode={setIsCode} /> </>}
+          {!isCode ? 
+          <>
+              <p className='mt-2'>Bạn chưa có tài khoản ? 
+              <a onClick={()=> setIsSignUp(!isSignUp)}>
+              {!isSignUp ? 
+                <> Đăng ký</>
+                :
+                <> Đăng nhập
+                </>} </a>
+            </p>
+          </> 
+          : <></>}
+      </div> 
       </div>
 		</div>
     </Wrapper>
