@@ -269,7 +269,7 @@ const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
     );
     auth.signInWithCredential(credential)
       .then(() => {
-          setStep('VERIFY_SUCCESS');
+          // setStep('VERIFY_SUCCESS');
           setIsCode(true)
           register({
           username: dataRegister.phoneNumber,
