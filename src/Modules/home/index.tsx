@@ -11,15 +11,27 @@ import { RoutePopular, OutstandingOffer, ConnectionPlatform} from "@components"
 import { Link } from "react-router-dom";
 import { getListLocation } from "@apis";
 import Select from "react-select";
+import { setLocalStorage, STORAGE } from '@utils'
+
 
 const HomeScreen = () => {
-   const [startDate, setStartDate] = useState(new Date());
    const [listLocation, setListLocation] = useState([]);
-   const [value, setValues] = useState([]);
+   const [startpoint, setStartPoint] = useState<any>();
+   const [endpoint, setEndPoint] = useState<any>();
+   const [date, setDate] = useState<any>(new Date());
+
+   const today = new Date()
+   const tomorrow = new Date(today)
+   tomorrow.setDate(tomorrow.getDate() + 1)
 
    useEffect(() => {
       getListLocation(setListLocation);
-    }, []);
+      setLocalStorage(STORAGE.startpoint, JSON.stringify(startpoint));
+      setLocalStorage(STORAGE.endpoint, JSON.stringify(endpoint));
+      setLocalStorage(STORAGE.date, JSON.stringify(date));
+    }, [startpoint,endpoint, date]);
+
+    console.log(JSON.stringify(date))
 
     const updatedCountries = listLocation.map((country :any) => ({
       label: country.nameStation,
@@ -46,7 +58,7 @@ const HomeScreen = () => {
                            placeholder='Chọn điểm đi'
                            options={updatedCountries}
                            onChange={(value) => {
-                              setValues(value);
+                              setStartPoint(value);
                            }}
                      />
                      </div>
@@ -65,7 +77,7 @@ const HomeScreen = () => {
                            placeholder='Chọn điểm đến'
                            options={updatedCountries}
                            onChange={(value) => {
-                              setValues(value);
+                              setEndPoint(value);
                            }}
                        />
                      </div>
@@ -78,9 +90,10 @@ const HomeScreen = () => {
                         <p className='text-sky-600 mb-1'>Ngày khởi hành</p>
                         <DatePicker
                            id="date"
-                           selected={startDate} 
-                           onChange={(date:Date) => setStartDate(date)} 
-                           minDate={new Date()}
+                           dateFormat='yyyy-MM-dd'
+                           selected={date} 
+                           onChange={(date:Date) => setDate(date)} 
+                           minDate={tomorrow}
                            className='w-full'
                               />
                      </div>

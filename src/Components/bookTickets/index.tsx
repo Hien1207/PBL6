@@ -8,6 +8,7 @@ import Pay from './pay'
 
 interface Prop{
   isClickBook: boolean; 
+  item: any
 }
 const Wrapper = styled.div`
     border-top: 1px solid rgb(192, 192, 192);
@@ -33,10 +34,10 @@ const Wrapper = styled.div`
     }
 `
 
-const BookTickets:FC<Prop> = ({isClickBook}) => {
+const BookTickets:FC<Prop> = ({isClickBook, item}) => {
   const [list, setList] = useState(items);
   return (
-    <Wrapper className={`${isClickBook ? 'block' : 'hidden'}`}>
+    <Wrapper className={`${isClickBook === item.idTrip ? 'block' : 'hidden'}`}>
        <div className='mt-4 ml-24 '>
          <ul className='flex mb-0'>
           {list.map((item: any, index: any) => {

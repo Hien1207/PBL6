@@ -252,11 +252,10 @@ const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
 		let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
               'size': 'invisible'
           });
-          
-		auth.signInWithPhoneNumber("+84" + mynumber, verify).then((result) => {
-            setVerificationId(result.verificationId)
-            setStep('VERIFY_OTP');
-		})
+    auth.signInWithPhoneNumber("+84" + handlePhone, verify).then((result) => {
+      setVerificationId(result.verificationId)
+      setStep('VERIFY_OTP');
+      })
         .catch((err) => {
           alert(err);
     });

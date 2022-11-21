@@ -1,6 +1,4 @@
-import { parseFilter } from '@utils'
-import AxiosClient from './api'
-import END_POINT from './constants'
+
 import axios from "axios";
 
 const getListLocation = (setListLocation) => {
@@ -23,4 +21,19 @@ const getListLocation = (setListLocation) => {
     .catch((err) => console.warn(err));
 };
 
-export { getListLocation };
+const findTrips = (Data, setData) => {
+  axios({
+    method: "POST",
+    url: "https://book-ticket-doan.herokuapp.com/api/trip/find-trip",
+    data: Data,
+  })
+    .then((res) => {
+      let listResponse = res.data;
+      setData(listResponse);
+    })
+    .catch((err) => console.warn(err));
+};
+
+
+
+export { getListLocation ,findTrips};
