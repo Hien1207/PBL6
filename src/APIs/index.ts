@@ -5,7 +5,8 @@ export {
 } from './auth.api'
 
 export {
-  getListLocation
+  getListLocation,
+  findTrips
 } from './route.api'
 
 export {

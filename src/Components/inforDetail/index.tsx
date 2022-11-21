@@ -10,6 +10,7 @@ import { FC } from 'react';
 
 interface Prop{
   isClickInfor: boolean; 
+  item :any
 }
 const Wrapper = styled.div`
     border-top: 1px solid rgb(192, 192, 192);
@@ -35,7 +36,7 @@ const Wrapper = styled.div`
     }
 `
 
-const InforDetail:FC<Prop> = ({isClickInfor}) => {
+const InforDetail:FC<Prop> = ({isClickInfor, item}) => {
   const [list, setList] = useState(items);
   const handleClick = (item: any) => {
 			const newList = list.map((_item: any) => {
@@ -48,7 +49,8 @@ const InforDetail:FC<Prop> = ({isClickInfor}) => {
 			setList(newList);
 	};
   return (
-    <Wrapper className={`${isClickInfor ? 'block' : 'hidden'}`}>
+    <Wrapper className={`${isClickInfor === item.idTrip ? 'block' : 'hidden'}`}>
+    {/* // <Wrapper className="infor"> */}
        <div className='mt-4 ml-20 '>
          <ul className='flex mb-0'>
           {list.map((item: any, index: any) => {
@@ -75,7 +77,7 @@ const InforDetail:FC<Prop> = ({isClickInfor}) => {
 							<Utilites/>
 						)}
 						{list[2].isActive && (
-							<Point  />
+							<Point item={item} />
 						)}
 						{list[3].isActive && (
 							<Policy  />

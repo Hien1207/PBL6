@@ -66,4 +66,11 @@ export const Wrapper = styled.div`
   .bg_red{
     background-color: #B52E30;
   }
+  .item_:active ~ .icon_down{
+    transform: rotate(180deg);
+  }
+  .infor{
+    display: none;
+  }
+ 
 `
