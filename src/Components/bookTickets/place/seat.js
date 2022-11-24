@@ -76,24 +76,6 @@ export default class Seats extends Component {
         { id: 14, number: 4, isSelected: this.state.props, isReserved: true },
 
         { id: 15, number: 5, isSelected: this.state.props, isReserved: false }
-      ],
-      [
-        { id: 16, number: 1, isSelected: this.state.props, isReserved: true },
-        { id: 17, number: 2, isSelected: this.state.props, isReserved: false },
-        null,
-        { id: 18, number: 3, isSelected: this.state.props, isReserved: true },
-        { id: 19, number: 4, isSelected: this.state.props, isReserved: false },
-
-        { id: 20, number: 5, isSelected: this.state.props, isReserved: false }
-      ],
-      [
-        { id: 21, number: 1, isReserved: false },
-        { id: 22, number: 2, isSelected: this.state.props, isReserved: false },
-        null,
-        { id: 23, number: 1, isReserved: false },
-        { id: 24, number: 2, isSelected: this.state.props, isReserved: true },
-
-        { id: 25, number: 5, isSelected: this.state.props, isReserved: true }
       ]
     ];
     const { loading } = this.state;
