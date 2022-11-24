@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import Seats from "./seat";
+import { useEffect, useState } from "react";
+import {SEAT_NO , SEAT_YES, SEAT_ED} from "@assets"
 
 const Wrapper = styled.div`
   .left{
@@ -37,8 +39,9 @@ const Wrapper = styled.div`
   }
 `
 
-const Place = ( {list ,setList }:any) => {
+const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:any) => {
   const handleClick = () => {
+   if(ArrSeat.length > 0 || count >0){
     const newList = list.map((_item: any) => {
       if (_item.id === '2') {
         return { ..._item, isActive: true };
@@ -47,21 +50,144 @@ const Place = ( {list ,setList }:any) => {
       }
     });
     setList(newList);
+  }
 };
 
+   const [data, setData] = useState<any>();
+   useEffect (() => {
+    setData(item.seatStatuses)
+   },[item.seatStatuses, data])
+
+   const increment = (): any => {
+      if(count < 3){
+        setCounter(count+1);
+      }
+   };
+   
+   const decrement = (): any => {
+    if(count > 0){
+      setCounter(count-1);
+    }
+   }
+
+  //  const [ArrSeat, setArrSeat] = useState<any[]>([])
+   const onClickSeat = (nameSeat :any) => {
+      if( ArrSeat.length < 3 && nameSeat !== ArrSeat[0] && nameSeat !== ArrSeat[1] && nameSeat !== ArrSeat[2]) {
+        setArrSeat(old => [...old,nameSeat]);
+      } 
+      if(nameSeat === ArrSeat[0] || nameSeat === ArrSeat[1] || nameSeat === ArrSeat[2]){
+        setArrSeat(ArrSeat.filter(item => item !== nameSeat))
+      }
+   };
 
   return (
     <Wrapper>
       <div className="">
-          <Seats /> 
+      {/* <Seats item={item} /> */}
+      {item.status ? 
+      <>
+         <div className='flex'>
+          <div className='w-[200px]  flex flex-wrap mt-8 ml-[-3rem]'>
+            {data?.map((item : any, index :any) => (
+                <div className='' >
+                  { index < 23 ? 
+                  <>
+                  <div className='w-[60px] h-[90px]'>
+                    {item.status ?
+                     <><img src={SEAT_NO} alt='' className='m-[auto]'/></> 
+                     : 
+                     <>
+                     <div onClick={() => onClickSeat(item.nameSeat)}>
+                        { ArrSeat[0] === item.nameSeat || ArrSeat[1] === item.nameSeat || ArrSeat[2] === item.nameSeat ? 
+                        <><img src={SEAT_ED} alt='' className='m-[auto] cursor-pointer'/></>
+                        :
+                        <><img src={SEAT_YES} alt='' className='m-[auto] cursor-pointer'/></>
+                        }
+                     </div>
+                     </>
+                     }
+                    <h2 className='text-center mt-1'>{item.nameSeat}</h2>
+                    </div>
+                  </>
+                  :<></>}
+                </div>
+              ))}
+          </div>
+          <div className='w-[200px]  flex flex-wrap mt-8 ml-[2rem]'>
+            {data?.map((item : any, index :any) => (
+                <div className='' >
+                  { index > 22 ? 
+                  <>
+                  <div className='w-[60px] h-[90px]'>
+                   {item.status?
+                     <><img src={SEAT_NO} alt='' className='m-[auto]'/></> 
+                     : 
+                     <>
+                       <div onClick={() => onClickSeat(item.nameSeat)}>
+                        { ArrSeat[0] === item.nameSeat || ArrSeat[1] === item.nameSeat || ArrSeat[2] === item.nameSeat ? 
+                        <><img src={SEAT_ED} alt='' className='m-[auto] cursor-pointer'/></>
+                        :
+                        <><img src={SEAT_YES} alt='' className='m-[auto] cursor-pointer'/></>
+                        }
+                     </div>
+                     </>
+                    }
+                    <h2 className='text-center mt-1'>{item.nameSeat}</h2>
+                    </div>
+                  </>
+                  :<></>}
+                </div>
+              ))}
+          </div>
+          <div className='ml-[3rem] mt-8 block'>
+             <p className='font-bold'>Chú thích</p>
+             <div className='flex h-[50px] mb-4'>
+                <img src={SEAT_YES} alt=''/>
+                <p className='ml-4 pt-2'> Ghế đơn <br/> {item.price} đ</p>
+             </div>
+             <div className='flex h-[50px] mb-4'>
+                <img src={SEAT_NO} alt=''/>
+                <p className='ml-4 pt-3'>Ghế không bán</p>
+             </div>
+             <div className='flex h-[50px]'>
+                <img src={SEAT_ED} alt='' />
+                <p className='ml-4 pt-3'>Đang chọn</p>
+             </div>
+          </div>
+        </div>
+      </> 
+      : 
+      <>
+        <div className='my-16'>
+           <h1 className=''>Chọn số lượng ghế :</h1>
+           <div className='flex mt-4'>
+            <button onClick={decrement} className="w-[30px] h-[30px] border-2 border-gray-400  mr-4">-</button>
+            <div key={count} className='text-base mt-1'>{count}</div>
+            <button onClick={increment} className="w-[30px] h-[30px] border-2 border-gray-400  ml-4">+</button>
+          </div>
+        </div>
+      </>
+      }
        <div className='border-b-2 w-[118%] ml-[-6rem]'></div>
        <div className='w-[118%] ml-[-6rem] mt-6 flex'>
              <div className='w-1/2'>
-                <p>Ghế G12</p>
+             {item.status ? 
+                <> <p>Ghế {ArrSeat[0]} {ArrSeat[1]} {ArrSeat[2]}</p></> 
+                : 
+                <> <p>{count} ghế</p></>
+              }
              </div>
              <div className='w-1/2 flex ml-[15.5rem]'>
-                <p className='pt-1 mr-6'>Tổng cộng : <span className='text-[#2a41e8]'> ###,### đ</span></p>
-                <button className='right' onClick={() => handleClick()} >Tiếp tục</button>
+                <p className='pt-1 mr-6'>Tổng cộng : 
+                  <span className='text-[#2a41e8]'>
+                  {item.status ? 
+                    <> <p>{item.price*ArrSeat.length} đ</p></> 
+                    : 
+                    <> <p>{item.price *count} đ</p></>
+                  }
+                  </span>
+                </p>
+                <button className={`right ${ArrSeat.length || count ? '' : 'opacity-75'}`} onClick={() => handleClick()} >Tiếp tục</button>
              </div>
           </div>
       </div>

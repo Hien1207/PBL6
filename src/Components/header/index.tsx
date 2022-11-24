@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { Menu , Dropdown} from 'antd'
-import { useTranslation } from 'react-i18next'
 import { HomeOutlined } from '@ant-design/icons'
 import { items } from "./item";
-import { LOGOUT_ICON, LOGO_ICON } from '@assets'
+import {  LOGO_ICON } from '@assets'
 import { getLocalStorage, removeLocalStorage, STORAGE } from '@utils'
 import { useAuth } from '@hooks'
-import { USER_URL, SIGNAL_TYPE } from '@constants'
+import { USER_URL } from '@constants'
 import { USER_ROLE } from '@constants/auth'
 import { Link } from "react-router-dom";
 import { FC } from 'react';
@@ -146,17 +145,6 @@ const Header:FC<Prop> = ({setIsShow}) => {
   const role = profile?.role
   
   const [list, setList] = useState(items);
-  const handleClick = (item: any) => {
-			const newList = list.map((_item: any) => {
-				if (_item.id === item.id) {
-					return { ..._item, isActive: true };
-				} else {
-					return { ..._item, isActive: false };
-				}
-			});
-			setList(newList);
-	};
-
   const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
   const [isLoggedIn, setisLoggedIN] = useState(false) 
   useEffect(() => {
@@ -167,7 +155,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
 
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
-    window.location.reload()
+    window.location.replace('./')
   }, [])
 
 
@@ -184,8 +172,10 @@ const Header:FC<Prop> = ({setIsShow}) => {
       </>
       )}
       <Menu.Item key="1" >
-        <img src='https://storage.googleapis.com/fe-production/images/Auth/account-circle.svg'   alt=''/>
-        <span>&nbsp;Thông tin tài khoản</span>
+        <img src='https://storage.googleapis.com/fe-production/images/Auth/account-circle.svg' alt=''/>
+        <Link to="./profile">
+          <span>&nbsp;Thông tin tài khoản</span>
+        </Link>
       </Menu.Item>
       <Menu.Item key="2" >
         <img src='	https://storage.googleapis.com/fe-production/images/ticket.svg'   alt=''/>
@@ -203,7 +193,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
       <div className="container">
         <div className="row">
           <div className="header-left absolute">
-             <img src={LOGO_ICON} className="h-16 mb-2" />
+             <img src={LOGO_ICON} className="h-16 mb-2" alt='' />
           </div>
           <div className="header-right absolute">
             <div className="row g-3">
@@ -228,7 +218,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
               </div>
               <div className="col user-info" role="presentation">
                 <button className="bg-sky-700 w-full flex font-semibold h-8 items-center justify-center  px-3 rounded-md text-white text-sm  fol">
-                  <img src="https://storage.googleapis.com/fe-production/images/Auth/account-circle-fill.svg"/>
+                  <img src="https://storage.googleapis.com/fe-production/images/Auth/account-circle-fill.svg" alt=''/>
                    {isLoggedIn ? 
                    <>
                         <Dropdown overlay={dropdownMenu} trigger={['click']}>
