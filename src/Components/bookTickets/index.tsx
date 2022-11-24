@@ -8,7 +8,15 @@ import Pay from './pay'
 
 interface Prop{
   isClickBook: boolean; 
-  item: any
+  item: any;
+  ArrSeat :any ;
+  setArrSeat : any;
+  dataBookSeat:any ;
+  setDataBookSeat :any;
+  count :any;
+  setCounter:any;
+  startpoint:any;
+  endpoint: any;
 }
 const Wrapper = styled.div`
     border-top: 1px solid rgb(192, 192, 192);
@@ -34,20 +42,20 @@ const Wrapper = styled.div`
     }
 `
 
-const BookTickets:FC<Prop> = ({isClickBook, item}) => {
+const BookTickets:FC<Prop> = ({isClickBook, item ,ArrSeat ,setArrSeat, dataBookSeat , setDataBookSeat, count , setCounter, startpoint, endpoint}) => {
   const [list, setList] = useState(items);
   return (
     <Wrapper className={`${isClickBook === item.idTrip ? 'block' : 'hidden'}`}>
        <div className='mt-4 ml-24 '>
          <ul className='flex mb-0'>
-          {list.map((item: any, index: any) => {
+          {list.map((value: any, index: any) => {
             let classStyles2 = "";
-            if (item?.isActive) classStyles2 = "activeNav";
+            if (value?.isActive) classStyles2 = "activeNav";
             return (
               <li key={index} className={`dark:text-slate-700 mr-32 text-base  ${classStyles2}`}>
                 <div
                   className="cursor-pointer font-medium" >
-                  {item.name}
+                  {value.name}
                 </div>
               </li>
             );
@@ -56,13 +64,13 @@ const BookTickets:FC<Prop> = ({isClickBook, item}) => {
         <div className='line'></div>
         <div>
 						{list[0].isActive && (
-							<Place list={list} setList={setList} />
+							<Place list={list} setList={setList} item={item} ArrSeat={ArrSeat} setArrSeat={setArrSeat} count={count} setCounter={setCounter}/>
 						)}
 						{list[1].isActive && (
-							<Infor list={list} setList={setList}/>
+							<Infor list={list} setList={setList} item={item} ArrSeat={ArrSeat} dataBookSeat={dataBookSeat} setDataBookSeat={setDataBookSeat} count={count}/>
 						)}
 						{list[2].isActive && (
-							<Pay  list={list} setList={setList} />
+							<Pay  list={list} setList={setList} item={item} ArrSeat={ArrSeat} dataBookSeat={dataBookSeat} count={count} startpoint={startpoint} endpoint={endpoint}/>
 						)}
 					</div>
        </div>

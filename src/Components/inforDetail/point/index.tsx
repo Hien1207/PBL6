@@ -10,10 +10,12 @@ const Wrapper = styled.div`
 `
 
 const Point:FC<Prop> = ({item}) => {
-  const [routeStations, setrouteStations] = useState<any>([]);
+  const [routeStations, setrouteStations] = useState<any>();
   useEffect (() => {
     setrouteStations(item.routeStations)
   },[item.routeStations])
+
+  console.log(routeStations)
 
   return (
     <Wrapper>
@@ -22,9 +24,7 @@ const Point:FC<Prop> = ({item}) => {
           <br/><span className='font-normal text-black'>Các mốc thời gian đón, trả bên dưới là thời gian dự kiến.
           <br/>Lịch này có thể thay đổi tùy tình hình thực tế.</span>
         </p>
-        {routeStations.map((route :any, index :any) => (
-           <p>*  {route[0]} - {route[1]}</p>
-        ))}
+        {/* {routeStations?.map((value, key) => <div>{value}</div>)} */}
       </div>
     </Wrapper>
   )

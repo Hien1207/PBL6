@@ -8,6 +8,10 @@ import ICON_Search from './images/search.png'
 import Quytrinh from './images/imageqt.png'
 import Gioithieu from './images/image_gt.png'
 import LOGO_ICON from './images/logo.png'
+import SEAT_NO from './icons/seat_no.png'
+import SEAT_YES from './icons/seat_yes.png'
+import SEAT_ED from './icons/seat_ed.png'
+
 
 // import svg as react component
 import { ReactComponent as EN_ICON } from './icons/flags/en.svg'
@@ -98,4 +102,7 @@ export {
   FOLDER_ICON,
   Quytrinh,
   LOGO_ICON,
+  SEAT_NO,
+  SEAT_YES,
+  SEAT_ED
 }

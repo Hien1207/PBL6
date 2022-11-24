@@ -2,7 +2,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Header, Footer, ModalSignIn } from '@components'
-import {  useState } from "react";
+import {  useState ,useEffect} from "react";
+import { useHistory } from "react-router-dom";
 
 const Wrapper: any = styled.div`
   overflow: auto;
@@ -29,6 +30,14 @@ const Content = styled.div`
 
 const HomeLayout = ({ children }: any) => {
   const [isShow, setIsShow] = useState(false);
+  const history = useHistory();
+  const [isProfile, setIsProfile] = useState(false);
+
+  useEffect (() => {
+     if ( history.location.pathname === '/profile') {
+        setIsProfile(true)
+     } 
+    },[history.location.pathname])
   return (
     <Wrapper >
       <Header setIsShow = {setIsShow}/>
@@ -42,7 +51,9 @@ const HomeLayout = ({ children }: any) => {
           event={() => setIsShow(false)}
        />
       )}
-      <Footer />
+     {!isProfile &&(
+       <Footer />     
+     )}
     </Wrapper>
   )
 }
