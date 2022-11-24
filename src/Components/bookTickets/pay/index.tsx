@@ -42,7 +42,7 @@ const Wrapper = styled.div`
 	}
 `
 
-const Pay = ({list ,setList }:any) => {
+const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, endpoint}:any) => {
   const handleClickDown = () => {
     const newList = list.map((_item: any) => {
       if (_item.id === '2') {
@@ -64,28 +64,28 @@ const Pay = ({list ,setList }:any) => {
               <div className="w-1/4  rounded-lg mr-2 py-2 item_co block p-4">
                 <div>
                   <p className='mb-0'>Hành khách</p>
-                  <p className='font-medium'>Nguyen Van A</p>
+                  <p className='font-medium'>{dataBookSeat.username}</p>
                 </div>
                 <div >
                   <p className='mb-0'>Số điện thoại</p>
-                  <p className='font-medium'> +84 524 ### ###</p>
+                  <p className='font-medium'>{dataBookSeat.phonenumber}</p>
                 </div>
                 <div >
                   <p className='mb-0'>Gmail</p>
-                  <p className='font-medium'> example@gmail.com</p>
+                  <p className='font-medium'>{dataBookSeat.email}</p>
                 </div>
                 <div className='border-b-2 mb-4'></div>
                 <div >
                   <p className='mb-0'>Nhà xe</p>
-                  <p className='font-medium'>Mạnh Quân</p>
+                  <p className='font-medium'>{item.nameVehicle}</p>
                 </div>
                 <div >
                   <p className='mb-0'>Điểm đón (dự kiến)</p>
-                  <p className='font-medium'>Bến xe trung tâm</p>
+                  <p className='font-medium'>Bến xe {startpoint.label}</p>
                 </div>
                 <div >
                   <p className='mb-0'>Điểm trả (dự kiến)</p>
-                  <p className='font-medium'>Bến xe</p>
+                  <p className='font-medium'>Bến xe {endpoint.label}</p>
                 </div>
               </div>
             </div>
@@ -96,7 +96,15 @@ const Pay = ({list ,setList }:any) => {
                 <button className='left' onClick={() => handleClickDown()}>Quay lại</button>
              </div>
              <div className='w-1/2 flex ml-[14.3rem]'>
-                <p className='pt-1 mr-6'>Tổng cộng : <span className='text-[#2a41e8]'> ###,### đ</span></p>
+                <p className='pt-1 mr-6'>Tổng cộng : 
+                  <span className='text-[#2a41e8]'>
+                  {item.status ? 
+                    <> <p>{item.price*ArrSeat.length} đ</p></> 
+                    : 
+                    <> <p>{item.price *count} đ</p></>
+                  }
+                  </span>
+                </p>
                 <button className='right'>Thanh toán</button>
              </div>
           </div>

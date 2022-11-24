@@ -9,7 +9,7 @@ import { useState , useEffect} from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import {InforDetail, BookTickets} from '@components'
 import Select from "react-select";
-import { getLocalStorage, STORAGE } from '@utils'
+import { getLocalStorage,STORAGE } from '@utils'
 import { getListLocation,findTrips } from "@apis";
 
 
@@ -24,6 +24,17 @@ const BookingScreen = () => {
    const today = new Date()
    const tomorrow = new Date(today)
    tomorrow.setDate(tomorrow.getDate() + 1)
+
+   const [ArrSeat, setArrSeat] = useState<any[]>([])
+   const [count, setCounter] = useState(0)
+   const [dataBookSeat, setDataBookSeat] = useState({
+      username: "",
+      phonenumber: "",
+      email:"",
+      note : "",
+      seatIds : ArrSeat ,
+      tripId:"",
+    });
 
    useEffect(() => {
       getListLocation(setListLocation);
@@ -65,6 +76,16 @@ const BookingScreen = () => {
       }
       if(isClickBook === id ){
          setIsClickBook('')
+         setArrSeat([])
+         setCounter(0)
+         setDataBookSeat({
+            username: "",
+            phonenumber: "",
+            email:"",
+            note : "",
+            seatIds : ArrSeat ,
+            tripId:"",
+          })
       }
     }
 
@@ -72,6 +93,28 @@ const BookingScreen = () => {
       label: country.nameStation,
       value: country.id,
     }));
+
+    const convertTimeToNumber = (time1 = '00:00:00', length) => {
+      const arrTime1 = time1.split(':').map((item1) => parseInt(item1))
+      const [hour1, minutes1, seconds1] = arrTime1
+      const start = (hour1 * 3600) + (minutes1 * 60) + seconds1;
+
+      const time2 ='01:20:00'
+      const arrTime2 = time2.split(':').map((item2) => parseInt(item2))
+      const [hour2, minutes2, seconds2] = arrTime2
+      const end = (hour2 * 3600) + (minutes2 * 60) + seconds2;
+
+      const time = start + end*length
+      const h = Math.floor(time / 3600)
+      const m = Math.floor(time % 60)
+      const s = time % 60
+      const hours = h >= 10 ? h : `0${h}`
+      const seconds = s >= 10 ? s : `0${s}`
+      const minutes = m >= 10 ? m : `0${m}`
+
+      return `${hours}:${minutes}:${seconds}`
+      
+    }
    return (
       <>
       <Wrapper id="intro" className='bg-white'>
@@ -83,7 +126,7 @@ const BookingScreen = () => {
                         <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
-                        <p className='text-sky-600 mb-1'>Điểm đi</p>
+                        <p className='text-sky-600 mb-1 ml-[-8px]'>Điểm đi</p>
                         <Select
                            id="country"
                            name="country"
@@ -103,7 +146,7 @@ const BookingScreen = () => {
                         <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
-                        <p className='text-sky-600 mb-1'>Điểm đến</p>
+                        <p className='text-sky-600 mb-1 ml-[-8px]'>Điểm đến</p>
                         <Select
                            id="country"
                            name="country"
@@ -157,7 +200,7 @@ const BookingScreen = () => {
                <div className='main flex '>
                   <div className='flex w-1/5 mr-6'>
                      <img className='w-[28px] h-[28px] mr-4 mt-1' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmcVyV_1ANkrz2-grItqC5mmWqlCw19FDKw&usqp=CAU" alt='' />
-                     <p className='font-bold text-lg'>{item.timeStart}<br/> | <br/> {item.timeStations[item.timeStations.length-1]}</p>
+                     <p className='font-bold text-lg'>{item.timeStart}<br/> | <br/> {convertTimeToNumber(item.timeStart, item.timeStations.length)}</p>
                   </div>
                   <div className='w-1/5 block mr-14'>
                       <p className='font-bold text-[17px] mb-0'>{item.nameVehicle}</p>
@@ -173,7 +216,7 @@ const BookingScreen = () => {
                       </p>
                   </div>
                   <div className='w-1/5 mr-20'>
-                     <p className='font-bold text-[17px] mb-0 '>Còn {item.numberSeat} chỗ trống</p>
+                     <p className='font-bold text-[17px] mb-0 '>Còn {item.numberSeat - item.numberSeatSelect} chỗ trống</p>
                   </div>
                   <div className='w-1/5 block '>
                      <p className='font-bold text-[17px] mb-0 text-[#4457FF] pl-[22px]'>{item.price}đ
@@ -189,7 +232,18 @@ const BookingScreen = () => {
                   </div>
                </div>
                <InforDetail isClickInfor={isClickInfor} item={item}/>
-               <BookTickets isClickBook={isClickBook} item={item}/>
+               <BookTickets 
+                  isClickBook={isClickBook} 
+                  item={item} 
+                  ArrSeat = {ArrSeat}  
+                  setArrSeat={setArrSeat}
+                  dataBookSeat ={dataBookSeat}
+                  setDataBookSeat = {setDataBookSeat}
+                  count = {count}
+                  setCounter={setCounter}
+                  startpoint={startpoint}
+                  endpoint={endpoint}
+                  />
            </div>
             ))}
          </div>

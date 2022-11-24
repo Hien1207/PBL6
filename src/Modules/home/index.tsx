@@ -31,8 +31,6 @@ const HomeScreen = () => {
       setLocalStorage(STORAGE.date, JSON.stringify(date));
     }, [startpoint,endpoint, date]);
 
-    console.log(JSON.stringify(date))
-
     const updatedCountries = listLocation.map((country :any) => ({
       label: country.nameStation,
       value: country.id,
@@ -49,12 +47,12 @@ const HomeScreen = () => {
                         <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
-                        <p className='text-sky-600 mb-1'>Điểm đi</p>
+                        <p className='text-sky-600 mb-1 ml-[-8px]'>Điểm đi</p>
                         <Select
                            id="country"
                            name="country"
                            label="country"
-                           className='w-full pr-2'
+                           className='w-full pr-2 bb'
                            placeholder='Chọn điểm đi'
                            options={updatedCountries}
                            onChange={(value) => {
@@ -68,7 +66,7 @@ const HomeScreen = () => {
                         <img src={ICON_Locate} alt=''/>
                      </div>
                      <div className='my-auto w-32'>
-                        <p className='text-sky-600 mb-1'>Điểm đến</p>
+                        <p className='text-sky-600 mb-1 ml-[-8px]'>Điểm đến</p>
                         <Select
                            id="country"
                            name="country"

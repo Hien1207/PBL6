@@ -1,5 +1,6 @@
 
 import styled from 'styled-components'
+import {useState,useEffect} from 'react'
 
 const Wrapper = styled.div`
   .title{
@@ -22,6 +23,10 @@ const Wrapper = styled.div`
     height: 60px;
     padding: 5px 10px;
     border: 1px solid rgb(217, 217, 217);
+    &:focus{
+      box-shadow: 0 0 0 2px rgb(24 144 255 / 20%);
+      outline: none !important;
+    }
   }
   .left{
     line-height: 1.5;
@@ -58,7 +63,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Infor = ({list ,setList }:any) => {
+const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , count}:any) => {
   const handleClickUp = () => {
     const newList = list.map((_item: any) => {
       if (_item.id === '3') {
@@ -79,25 +84,169 @@ const Infor = ({list ,setList }:any) => {
     });
     setList(newList);
   };
+
+  const [inValidData, setInValidData] = useState({
+    errUsername: "",
+    errPhonenumber: "",
+    errEmail: "",
+    errRequire: "",
+  });
+
+  useEffect(() => {
+    if (
+      dataBookSeat.username &&
+      dataBookSeat.phonenumber && 
+      dataBookSeat.email
+    ) {
+      setInValidData({
+        ...inValidData,
+        errRequire: "",
+      });
+    }
+  }, [
+    dataBookSeat.username &&
+    dataBookSeat.phonenumber && 
+    dataBookSeat.email
+  ]);
+
+  const onSubmitBooking = () => {
+    if (!dataBookSeat.username || !dataBookSeat.phonenumber || !dataBookSeat.email) {
+      setInValidData({
+        ...inValidData,
+        errRequire: "Vui lòng điền thông tin!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errRequire: "",
+      });
+      handleClickUp()
+    }
+  };
+
+  const handleValidUsername = (val :any) => {
+     if (!val) {
+      setInValidData({
+        ...inValidData,
+        errUsername: "Vui lòng điền tên!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errUsername: "",
+      });
+    }
+  };
+  const handleValidPhonenumber = (val :any) => {
+    if (val.length > 11) {
+      setInValidData({
+        ...inValidData,
+        errPhonenumber: "Số điện thoại không quá 11 số!",
+      });
+    } else if (!val) {
+      setInValidData({
+        ...inValidData,
+        errPhonenumber: "Vui lòng điền số điện thoại!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errPhonenumber: "",
+      });
+    }
+  };
+
+  const handleValidEmail = (val: any) => {
+    if (!val) {
+      setInValidData({
+        ...inValidData,
+        errEmail: "Vui lòng điền email!",
+      });
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(val)) {
+      setInValidData({
+        ...inValidData,
+        errEmail: "Vui lòng điền email hợp lệ!",
+      });
+    } else {
+      setInValidData({
+        ...inValidData,
+        errEmail: "",
+      });
+    }
+  };
+
   return (
     <Wrapper>
       <div className="my-[1rem] ml-[-2rem] block ">
         <div className='title w-[70%]'>Chúng tôi chỉ dùng thông tin của bạn trong việc ghi nhận vé.</div>
         <div className='mt-4'>
            <p className='font-bold'>Họ tên <span className='text-red-600'>*</span></p>
-           <input  type="text" placeholder="Nguyen Van A"/>
+           <input type="text" className='mt-[-15px]' placeholder="Nguyen Van A" 
+                value={dataBookSeat.username}
+                onChange={(e : any) => {
+                  setDataBookSeat({
+                    ...dataBookSeat,
+                    username: e.target.value,
+                  })
+                  handleValidUsername(e.target.value);
+              }}/>
+              {inValidData.errUsername ? (
+                  <p className='text-red-600 mb-[-15px] text-[10px]' > {inValidData.errUsername}</p>
+                ) : (
+                  ""
+              )}
         </div>
         <div className='mt-4'>
            <p className='font-bold'>Số điện thoại <span className='text-red-600'>*</span></p>
-           <input  type="text" placeholder="+84 865 ### ###"/>
+           <input type="text" className='mt-[-15px]' placeholder="+84 865 ### ###" 
+                value={dataBookSeat.phonenumber}
+                maxLength={11}
+                onChange={(e : any) => {
+                  setDataBookSeat({
+                    ...dataBookSeat,
+                    phonenumber: e.target.value,
+                  })
+                  handleValidPhonenumber(e.target.value);
+              }}/>
+              {inValidData.errPhonenumber ? (
+                  <p className='text-red-600 mb-[-15px] text-[10px]' > {inValidData.errPhonenumber}</p>
+                ) : (
+                  ""
+              )}
         </div>
         <div className='mt-4'>
            <p className='font-bold'>Email để nhận thông tin vé* <span className='text-red-600'>*</span></p>
-           <input  type="text" placeholder="example@gmail.com"/>
+           <input type="text" className='mt-[-15px]' placeholder="example@gmail.com" 
+                value={dataBookSeat.email}
+                onChange={(e : any) => {
+                  setDataBookSeat({
+                    ...dataBookSeat,
+                    email: e.target.value,
+                  })
+                  handleValidEmail(e.target.value);
+              }}/>
+              {inValidData.errEmail ? (
+                  <p className='text-red-600 mb-[-15px] text-[10px]' > {inValidData.errEmail}</p>
+                ) : (
+                  ""
+              )}
         </div>
+        {inValidData.errRequire ? (
+            <p className='text-red-600 mb-0 mb-[-15px] text-[10px] mt-2' > {inValidData.errRequire}</p>
+          ) : (
+            ""
+          )}
         <div className='mt-4'>
            <p className='font-bold'>Ghi chú hoặc yêu cầu khác (Nếu có)</p>
-           <textarea  className='area' placeholder="Các yêu cầu đặc biệt không thể được đảm bảo - nhưng nhà xe sẽ cố gắng hết sức để đáp ứng nhu cầu của bạn." />
+           <textarea  className='area' placeholder="Các yêu cầu đặc biệt không thể được đảm bảo - nhưng nhà xe sẽ cố gắng hết sức để đáp ứng nhu cầu của bạn."
+             value={dataBookSeat.note}
+             onChange={(e : any) => {
+              setDataBookSeat({
+                ...dataBookSeat,
+                note: e.target.value,
+              })
+          }}
+           />
         </div>
         <p className='mt-2 mb-8'>Bằng việc nhấn nút Tiếp Tục, bạn đồng ý với 
           <br/> <span className='text-[#2a41e8]  '>Chính sách bảo mật thông tin và Quy chế </span></p>
@@ -107,8 +256,20 @@ const Infor = ({list ,setList }:any) => {
                 <button className='left' onClick={() => handleClickDown()}>Quay lại</button>
              </div>
              <div className='w-1/2 flex ml-[19.5rem]'>
-                <p className='pt-1 mr-6'>Tổng cộng : <span className='text-[#2a41e8]'> ###,### đ</span></p>
-                <button className='right' onClick={() => handleClickUp()}>Tiếp tục</button>
+                <p className='pt-1 mr-6'>Tổng cộng : 
+                    <span className='text-[#2a41e8]'>
+                      {item.status ? 
+                      <> <p>{item.price*ArrSeat.length} đ</p></> 
+                      : 
+                      <> <p>{item.price *count} đ</p></>
+                      }
+                    </span>
+                </p>
+                <button className='right' 
+                  onClick={() => {
+                    // handleClickUp()
+                    onSubmitBooking()
+                  }}>Tiếp tục</button>
              </div>
           </div>
       </div>

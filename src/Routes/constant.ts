@@ -7,6 +7,7 @@ import GioithieuScreen from '@modules/gioithieu'
 import LienheScreen from '@modules/lienhe'
 import DanhgiaScreen from '@modules/danhgia'
 import BookingScreen from '@modules/booking'
+import ProfileScreen from '@modules/profile'
 
 const RoutesName = {
   HOME: '/',
@@ -15,6 +16,7 @@ const RoutesName = {
   LIENHE : '/lienhe',
   DANHGIA : '/danhgia',
   BOOKING : '/booking',
+  PROFILE : '/profile',
 }
 
 export const ROUTES = [
@@ -57,6 +59,13 @@ export const ROUTES = [
   {
     path: RoutesName.DANHGIA,
     component: DanhgiaScreen,
+    layout: HomeLayout,
+    rules: [USER_ROLE.ADMIN],
+    exact: true,
+  },
+  {
+    path: RoutesName.PROFILE,
+    component: ProfileScreen,
     layout: HomeLayout,
     rules: [USER_ROLE.ADMIN],
     exact: true,
