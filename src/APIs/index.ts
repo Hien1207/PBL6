@@ -6,7 +6,9 @@ export {
 
 export {
   getListLocation,
-  findTrips
+  findTrips,
+  ApiBookingSeat,
+  ApiBookingPartSeat
 } from './route.api'
 
 export {

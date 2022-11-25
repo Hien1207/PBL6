@@ -92,7 +92,7 @@ const Infor = () => {
                id="date"
                dateFormat='yyyy-MM-dd'
                selected={date} 
-               value=''
+               value={date}
                onChange={(date:Date) => setDate(date)} 
                maxDate={date}
                className='w-full'

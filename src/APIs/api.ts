@@ -35,7 +35,7 @@ class AxiosClient {
       (configure: any) => {
         const token = getLocalStorage(STORAGE.USER_TOKEN)
         if (token) {
-          configure.headers.Authorization = `Bearer ${token}`
+          configure.headers.Authorization = `${token}`
         }
         return configure
       },
@@ -91,7 +91,7 @@ class AxiosClient {
   }
 
 	setHeader = async (userToken = null) => {
-	  this.axiosClient.defaults.headers.common.Authorization = `Bearer ${userToken}`
+	  this.axiosClient.defaults.headers.common.Authorization = `${userToken}`
 	};
 
 	get = async (resource: any, slug = '', config: any = {}) => {

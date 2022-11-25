@@ -4,6 +4,7 @@ import * as React from 'react';
 import {useState,useEffect} from 'react'
 import styled from 'styled-components'
 import { login } from "@apis";
+
 const Wrapper = styled.div`
 
   input{
@@ -31,9 +32,7 @@ interface SignInProps {
 	setIsCode: any;
 }
 
-const SignIn: FunctionComponent<SignInProps> = ({setIsCode})  => {
-
-
+const SignIn = ()  => {
   const [dataLogin, setDataLogin] = useState({
     username: "",
     password: "",

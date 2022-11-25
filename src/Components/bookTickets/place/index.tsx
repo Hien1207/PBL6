@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import Seats from "./seat";
 import { useEffect, useState } from "react";
 import {SEAT_NO , SEAT_YES, SEAT_ED} from "@assets"
+import { getLocalStorage, STORAGE } from '@utils'
+import {ModalSignIn} from "@components"
 
 const Wrapper = styled.div`
   .left{
@@ -39,19 +40,33 @@ const Wrapper = styled.div`
   }
 `
 
-const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:any) => {
-  const handleClick = () => {
-   if(ArrSeat.length > 0 || count >0){
-    const newList = list.map((_item: any) => {
-      if (_item.id === '2') {
-        return { ..._item, isActive: true };
-      } else {
-        return { ..._item, isActive: false };
+const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter, idSeat, setIdSeat}:any) => {
+
+  const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
+  const [isShow, setIsShow] = useState(false);
+  const [isLoggedIn, setisLoggedIN] = useState(false) 
+  useEffect(() => {
+     if (token){
+         setisLoggedIN(true)
+     }
+  },[token])
+
+  const handleClick = () => {  
+    if(ArrSeat.length > 0 || count >0){
+      if(isLoggedIn){
+      const newList = list.map((_item: any) => {
+        if (_item.id === '2') {
+          return { ..._item, isActive: true };
+        } else {
+          return { ..._item, isActive: false };
+        }
+      });
+        setList(newList);
+      }else{
+      setIsShow(true)
       }
-    });
-    setList(newList);
-  }
-};
+    };
+    }
 
    const [data, setData] = useState<any>();
    useEffect (() => {
@@ -70,7 +85,6 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:an
     }
    }
 
-  //  const [ArrSeat, setArrSeat] = useState<any[]>([])
    const onClickSeat = (nameSeat :any) => {
       if( ArrSeat.length < 3 && nameSeat !== ArrSeat[0] && nameSeat !== ArrSeat[1] && nameSeat !== ArrSeat[2]) {
         setArrSeat(old => [...old,nameSeat]);
@@ -79,6 +93,15 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:an
         setArrSeat(ArrSeat.filter(item => item !== nameSeat))
       }
    };
+
+   const IdSeat = (idseat :any) => {
+    if( idSeat.length < 3 && idseat !== idSeat[0] && idseat !== idSeat[1] && idseat !== idSeat[2]) {
+      setIdSeat(old => [...old,idseat]);
+    } 
+    if(idseat === idSeat[0] || idseat === idSeat[1] || idseat === idSeat[2]){
+      setIdSeat(idSeat.filter(item => item !== idseat))
+    }
+  };
 
   return (
     <Wrapper>
@@ -97,7 +120,8 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:an
                      <><img src={SEAT_NO} alt='' className='m-[auto]'/></> 
                      : 
                      <>
-                     <div onClick={() => onClickSeat(item.nameSeat)}>
+                     <div onClick={() => {onClickSeat(item.nameSeat)
+                                            IdSeat(item.id)}}>
                         { ArrSeat[0] === item.nameSeat || ArrSeat[1] === item.nameSeat || ArrSeat[2] === item.nameSeat ? 
                         <><img src={SEAT_ED} alt='' className='m-[auto] cursor-pointer'/></>
                         :
@@ -123,7 +147,8 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:an
                      <><img src={SEAT_NO} alt='' className='m-[auto]'/></> 
                      : 
                      <>
-                       <div onClick={() => onClickSeat(item.nameSeat)}>
+                       <div onClick={() => {onClickSeat(item.nameSeat)
+                                            IdSeat(item.id)}}>
                         { ArrSeat[0] === item.nameSeat || ArrSeat[1] === item.nameSeat || ArrSeat[2] === item.nameSeat ? 
                         <><img src={SEAT_ED} alt='' className='m-[auto] cursor-pointer'/></>
                         :
@@ -191,6 +216,11 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter}:an
              </div>
           </div>
       </div>
+      {isShow && (
+         <ModalSignIn
+          event={() => setIsShow(false)}
+       />
+      )}
     </Wrapper>
   )
 }

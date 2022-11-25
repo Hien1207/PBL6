@@ -8,7 +8,8 @@ export const initialState: AuthState = {
   error: null,
   authenticated: null,
   profile: {},
-  isSubmitting: false
+  isSubmitting: false,
+  message : null
 }
 
 function login(state: AuthState) {

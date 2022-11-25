@@ -32,7 +32,7 @@ const BookingScreen = () => {
       phonenumber: "",
       email:"",
       note : "",
-      seatIds : ArrSeat ,
+      seatIds : "" ,
       tripId:"",
     });
 
@@ -83,7 +83,7 @@ const BookingScreen = () => {
             phonenumber: "",
             email:"",
             note : "",
-            seatIds : ArrSeat ,
+            seatIds : "" ,
             tripId:"",
           })
       }

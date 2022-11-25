@@ -44,6 +44,8 @@ const Wrapper = styled.div`
 
 const BookTickets:FC<Prop> = ({isClickBook, item ,ArrSeat ,setArrSeat, dataBookSeat , setDataBookSeat, count , setCounter, startpoint, endpoint}) => {
   const [list, setList] = useState(items);
+  const [idSeat, setIdSeat] = useState<any[]>([])
+  const [data, setData] = useState<any>();
   return (
     <Wrapper className={`${isClickBook === item.idTrip ? 'block' : 'hidden'}`}>
        <div className='mt-4 ml-24 '>
@@ -64,10 +66,10 @@ const BookTickets:FC<Prop> = ({isClickBook, item ,ArrSeat ,setArrSeat, dataBookS
         <div className='line'></div>
         <div>
 						{list[0].isActive && (
-							<Place list={list} setList={setList} item={item} ArrSeat={ArrSeat} setArrSeat={setArrSeat} count={count} setCounter={setCounter}/>
+							<Place list={list} setList={setList} item={item} ArrSeat={ArrSeat} idSeat={idSeat} setIdSeat={setIdSeat} setArrSeat={setArrSeat} count={count} setCounter={setCounter}/>
 						)}
 						{list[1].isActive && (
-							<Infor list={list} setList={setList} item={item} ArrSeat={ArrSeat} dataBookSeat={dataBookSeat} setDataBookSeat={setDataBookSeat} count={count}/>
+							<Infor list={list} setList={setList} item={item} ArrSeat={ArrSeat} idSeat={idSeat} setIdSeat={setIdSeat} dataBookSeat={dataBookSeat} setDataBookSeat={setDataBookSeat} count={count} data={data} setData={setData}/>
 						)}
 						{list[2].isActive && (
 							<Pay  list={list} setList={setList} item={item} ArrSeat={ArrSeat} dataBookSeat={dataBookSeat} count={count} startpoint={startpoint} endpoint={endpoint}/>

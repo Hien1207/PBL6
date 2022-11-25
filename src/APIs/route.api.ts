@@ -1,10 +1,11 @@
 
 import axios from "axios";
-
+import AxiosClient from './api'
+import END_POINT from './constants'
 const getListLocation = (setListLocation) => {
   axios({
     method: "GET",
-    url: "https://book-ticket-doan.herokuapp.com/api/station",
+    url: "https://book-ticket-doan.herokuapp.com/api/station"
   })
     .then((res) => {
       const listResponse = res.data;
@@ -35,5 +36,26 @@ const findTrips = (Data, setData) => {
 };
 
 
+function ApiBookingSeat(Data: any, setData) {
+	return AxiosClient.post(END_POINT.BOOKSEAT, Data)
+         .then((res) => {
+          let listResponse = res.data;
+          setData(listResponse);
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
 
-export { getListLocation ,findTrips};
+function ApiBookingPartSeat(Data: any, setData) {
+	return AxiosClient.post(END_POINT.BOOKPARTSEAT, Data)
+         .then((res) => {
+          let listResponse = res.data;
+          setData(listResponse);
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+
+export { getListLocation ,findTrips, ApiBookingSeat ,ApiBookingPartSeat};
