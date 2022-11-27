@@ -8,9 +8,7 @@ const END_POINT: any = {
   //route 
   BOOKSEAT : '/api/book/book-seat',
   BOOKPARTSEAT: '/api/book/book-part-seat',
-
-  // common
-  PRESIGNED: '/api/v1/file/pre-signed',
+  PAYMENT : '/api/payment'
 }
 
 export default END_POINT

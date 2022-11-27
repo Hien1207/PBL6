@@ -2,6 +2,8 @@
 import axios from "axios";
 import AxiosClient from './api'
 import END_POINT from './constants'
+//@ts-ignore
+import { Linking } from "react-native";
 const getListLocation = (setListLocation) => {
   axios({
     method: "GET",
@@ -58,4 +60,16 @@ function ApiBookingPartSeat(Data: any, setData) {
         });
 }
 
-export { getListLocation ,findTrips, ApiBookingSeat ,ApiBookingPartSeat};
+function ApiPayment(Data: any,setLink) {
+	return AxiosClient.post(END_POINT.PAYMENT, Data)
+         .then((res) => {
+          let listResponse = res.data;
+          setLink(listResponse);
+          console.log(res.data)
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+
+export { getListLocation ,findTrips, ApiBookingSeat ,ApiBookingPartSeat ,ApiPayment};

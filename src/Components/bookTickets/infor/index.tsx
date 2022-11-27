@@ -63,7 +63,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , count, idSeat, data, setData}:any) => {
+const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , count, idSeat, setDataInforBook}:any) => {
 
   const handleClickUp = () => {
     const newList = list.map((_item: any) => {
@@ -134,27 +134,31 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
       if(item.status === true){
         ApiBookingSeat({
           email: dataBookSeat.email,
+          nameAgency : item.nameAgency,
           name: dataBookSeat.username,
+          nameVehicle : item.nameVehicle,
           note : dataBookSeat.note,
-          phonenumber : dataBookSeat.phonenumber,
+          phoneNumber : dataBookSeat.phonenumber,
           seatIds : idSeat,
           tripId : item.idTrip,
-          },setData)
+          },setDataInforBook)
         }else {
           ApiBookingPartSeat({
             email: dataBookSeat.email,
+            nameAgency : item.nameAgency,
             name: dataBookSeat.username,
+            nameVehicle : item.nameVehicle,
             note : dataBookSeat.note,
-            phonenumber : dataBookSeat.phonenumber,
+            phoneNumber : dataBookSeat.phonenumber,
             price : item.price *count ,
             quantity : count,
             routeStationBook: routeStation ,
             tripId : item.idTrip,
-            },setData)
+            },setDataInforBook)
         }
-      console.log(data)
     }
   };
+
   const handleValidUsername = (val :any) => {
      if (!val) {
       setInValidData({

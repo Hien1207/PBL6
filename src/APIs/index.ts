@@ -8,7 +8,8 @@ export {
   getListLocation,
   findTrips,
   ApiBookingSeat,
-  ApiBookingPartSeat
+  ApiBookingPartSeat,
+  ApiPayment
 } from './route.api'
 
 export {
