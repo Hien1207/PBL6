@@ -1,5 +1,9 @@
 
 import styled from 'styled-components'
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import {useState, useEffect} from 'react'
+import { ApiPayment } from "@apis";
 
 const Wrapper = styled.div`
  .left{
@@ -42,7 +46,11 @@ const Wrapper = styled.div`
 	}
 `
 
-const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, endpoint}:any) => {
+const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, endpoint, dataInforBook}:any) => {
+  const [select, setSelect] = useState(false);
+  const [valid, setValid] = useState(false);
+  const [link, setLink] = useState<any>('');
+
   const handleClickDown = () => {
     const newList = list.map((_item: any) => {
       if (_item.id === '2') {
@@ -53,11 +61,41 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
     });
     setList(newList);
   };
+
+  const handlePayment = () => {
+    if(!select){
+        setValid(true)
+    }else{
+      ApiPayment({
+        id: dataInforBook.paymentId ,
+        price : item.price,
+      },setLink)
+      console.log(link)
+    }
+  }
+
+  useEffect(() => {
+     if(select){
+      setValid(false)
+     }
+  },[select])
+
   return (
     <Wrapper>
         <div className='w-full mt-6 ml-[-2rem] flex mb-8'>
             <div className='w-3/5'>
                <p className='text-base font-bold'>Phương thức thanh toán</p>
+               <FormControlLabel 
+                  value="" 
+                  control={<Radio />} 
+                  label="Thanh toán online với VNPAY - QR Code" 
+                  onClick={() => setSelect(true)}
+               />
+                {valid ? (
+                  <p className='text-red-600 mb-[-15px] text-[10px] ml-8' >Bạn chưa chọn phương thức thanh toán !!</p>
+                ) : (
+                  ""
+                )}
             </div>
             <div className='w-2/5'>
               <p className='text-base font-bold'>Thông tin chuyến đi</p>
@@ -105,7 +143,7 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
                   }
                   </span>
                 </p>
-                <button className='right'>Thanh toán</button>
+                <button className='right' onClick={() => handlePayment()}>Thanh toán</button>
              </div>
           </div>
     </Wrapper>

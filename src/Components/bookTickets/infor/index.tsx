@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
 import {useState,useEffect} from 'react'
-
+import { ApiBookingSeat,ApiBookingPartSeat } from "@apis";
 const Wrapper = styled.div`
   .title{
     padding: 8px 12px;
@@ -63,7 +63,8 @@ const Wrapper = styled.div`
   }
 `
 
-const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , count}:any) => {
+const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , count, idSeat, setDataInforBook}:any) => {
+
   const handleClickUp = () => {
     const newList = list.map((_item: any) => {
       if (_item.id === '3') {
@@ -84,6 +85,15 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
     });
     setList(newList);
   };
+
+  const arr : any = [];
+  Object.keys(item.routeStations).map(function(key){  
+      arr.push({[key]:item.routeStations[key]})  
+      return arr;  
+  });   
+  const routeStation : any =[]
+  routeStation[0] =1;
+  routeStation[1] = arr.length 
 
   const [inValidData, setInValidData] = useState({
     errUsername: "",
@@ -121,6 +131,31 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
         errRequire: "",
       });
       handleClickUp()
+      if(item.status === true){
+        ApiBookingSeat({
+          email: dataBookSeat.email,
+          nameAgency : item.nameAgency,
+          name: dataBookSeat.username,
+          nameVehicle : item.nameVehicle,
+          note : dataBookSeat.note,
+          phoneNumber : dataBookSeat.phonenumber,
+          seatIds : idSeat,
+          tripId : item.idTrip,
+          },setDataInforBook)
+        }else {
+          ApiBookingPartSeat({
+            email: dataBookSeat.email,
+            nameAgency : item.nameAgency,
+            name: dataBookSeat.username,
+            nameVehicle : item.nameVehicle,
+            note : dataBookSeat.note,
+            phoneNumber : dataBookSeat.phonenumber,
+            price : item.price *count ,
+            quantity : count,
+            routeStationBook: routeStation ,
+            tripId : item.idTrip,
+            },setDataInforBook)
+        }
     }
   };
 

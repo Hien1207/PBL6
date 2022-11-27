@@ -35,19 +35,20 @@ interface ModalSignInProps {
 
 const ModalSignIn: FunctionComponent<ModalSignInProps> = ({event}) => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [isCode, setIsCode] = useState(false);
-  const [isInfor, setIsInfor] = useState(false);
+  const [step, setStep] = useState('INPUT_PHONE_NUMBER');
 
 	return (
     <Wrapper>
 		<div className="block items-center fixed z-[999] bg-[rgba(0,0,0,.45)] w-full h-full top-0 left-0">
 			<div className="block ml-[30%] mt-[10%] p-2 items-center leading-[42px] top-0 left-0 pb-8 w-2/5 modal bg-white">
+       {step !== 'VERIFY_OTP' &&
 					<img src='https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/close-icon.png' className='w-[15px] cursor-pointer ml-[97%]' alt=''onClick={event}/>
+       }
       <div className='block mx-4'>
           {!isSignUp ? 
-          <> <SignIn setIsCode={setIsCode} /></> 
-          : <> <SignUp setIsCode={setIsCode} /> </>}
-          {!isCode ? 
+          <> <SignIn /></> 
+          : <> <SignUp step={step} setStep ={setStep}/> </>}
+          {step !== 'VERIFY_OTP' ? 
           <>
               <p className='mt-2'>Bạn chưa có tài khoản ? 
               <a onClick={()=> setIsSignUp(!isSignUp)}>

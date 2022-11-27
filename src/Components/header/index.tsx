@@ -155,6 +155,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
 
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
+    removeLocalStorage(STORAGE.USER_DATA)
     window.location.replace('./')
   }, [])
 
