@@ -2,8 +2,6 @@ import AxiosClient from './api'
 import END_POINT from './constants'
 import axios from "axios";
 import { setLocalStorage, STORAGE } from '@utils'
-//@ts-ignore
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function login(Data: any) {
 	return AxiosClient.post(END_POINT.LOGIN, Data)
@@ -54,13 +52,33 @@ function register (Data) {
     });
 };
 
-function getProfile({ userId }: any) {
-  return AxiosClient.get(`${END_POINT.PROFILE_USER}?userId=${userId}`)
-    .then((res) => res)
+
+function getProfile(setInfor) {
+	return AxiosClient.get(END_POINT.PROFILE_USER)
+         .then((res) => {
+          let listResponse = res.data.body;
+          setInfor(listResponse);
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
 }
+
+function updateProfile(Data) {
+	return AxiosClient.post(END_POINT.UPDATE_PROFILE, Data)
+         .then((res) => {
+          window.location.reload();
+          return res.data
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+
 
 export {
   login,
   register,
-  getProfile
+  getProfile,
+  updateProfile
 }

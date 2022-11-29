@@ -49,7 +49,6 @@ const Wrapper = styled.div`
 const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, endpoint, dataInforBook}:any) => {
   const [select, setSelect] = useState(false);
   const [valid, setValid] = useState(false);
-  const [link, setLink] = useState<any>('');
 
   const handleClickDown = () => {
     const newList = list.map((_item: any) => {
@@ -69,8 +68,7 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
       ApiPayment({
         id: dataInforBook.paymentId ,
         price : item.price,
-      },setLink)
-      console.log(link)
+      })
     }
   }
 

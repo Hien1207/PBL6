@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import { getLocalStorage, STORAGE} from '@utils'
 import { useState , useEffect} from "react";
-import DatePicker from "react-datepicker";
+import {getProfile , updateProfile} from '@apis'
 
 const Wrapper = styled.div`
   width: 97%;
@@ -36,88 +35,194 @@ const Wrapper = styled.div`
    .bt_save:hover{
      background: #4fa0ec;
    }
-`
+`      
+   const Infor = () => {
+ 
+    const [data, setData] = useState<any>([])
+    const [edit, setEdit] = useState(false)
+    useEffect(() => {
+      getProfile(setData)
+    },[setData])
 
-const Infor = () => {
-   const [date, setDate] = useState<any>(new Date());
-   const gender = [
-      { id: '1', value: 'Nam', isActive: false},
-      { id: '2', value: 'Nữ', isActive: true },
-      { id: '3', value: 'Khác', isActive: false },
-   ];
-
-   const [list, setList] = useState(gender);
-   const handleClick = (item: any) => {
-     const newList = list.map((_item: any) => {
-       if (_item.id === item.id) {
-         return { ..._item, isActive: true };
-       } else {
-         return { ..._item, isActive: false };
-       }
-     });
-     setList(newList);
-   };
-
-   const [dataInfor, setDataInfor] = useState({
-      username: "",
-      phonenumber: "",
-      birthday:"",
-      gender : "",
+    const [dataInfor, setDataInfor] = useState({
+      address : '',
+      city : '',
+      country: '',
+      email : '',
+      name: '',
+      phone: '', 
+      wards : '',  
     });
 
     useEffect(() => {
       setDataInfor({
-         username: "",
-         phonenumber: JSON.parse(getLocalStorage(STORAGE.USER_DATA) || '{}').username,
-         birthday:"",
-         gender : "",
-       })
-    },[])
+        address : data.address,
+        city : data.city,
+        country: data.country,
+        email : data.email,
+        name: data.name,
+        phone: data.phone, 
+        wards : data.wards, 
+      })
+    },[data])
+
+    const handleSave = () =>{
+      updateProfile(dataInfor)
+    }
 
   return (
     <Wrapper>
       <div className='w-[100%] mb-2 block'>
          <div className='title w-[72%]'>Bổ sung đầy đủ thông tin sẽ giúp chúng tôi hỗ trợ bạn tốt hơn khi đặt vé</div>
-         <div className='mt-4'>
+         {!edit ? 
+         <>
+            <div className='mt-4'>
            <p >Họ và tên*</p>
-           <input type="text" className='mt-[-15px]' />
-        </div>
-        <div className='mt-4'>
-           <p >Số điện thoại</p>
-           <input type="text" className='mt-[-15px]' maxLength={11} value={dataInfor.phonenumber} disabled/>
-        </div>
-        <div className='mt-4'>
-           <p >Ngày sinh</p>
-           <DatePicker
-               id="date"
-               dateFormat='yyyy-MM-dd'
-               selected={date} 
-               value={date}
-               onChange={(date:Date) => setDate(date)} 
-               maxDate={date}
-               className='w-full'
-            />
-        </div>
-        <div className='line'></div>
-        <div className='border-slate-300 border rounded-md'>
-          <ul className='flex mb-0 '>
-            {list.map((item: any, index: any) => {
-              let classStyles2 = "";
-              if (item?.isActive) classStyles2 = "active_gender";
-              return (
-                <li key={index} className={`dark:text-slate-700 p-2 flex w-1/3 border-slate-300 border-r ${classStyles2}`}>
-                  <div
-                    className="cursor-pointer mx-auto"
-                    onClick={() => handleClick(item)}
-                  >
-                    {item.value}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <button className='mt-4 w-full text-center border-slate-300 border rounded-md bg-[#1890ff] p-2 text-white bt_save'>Lưu</button>
+           <input type="text" className='mt-[-15px]' 
+             value={data.name}
+           />
+            </div>
+            <div className='mt-4'>
+              <p >Số điện thoại</p>
+              <input type="text" className='mt-[-15px]' 
+                  maxLength={11} 
+                  value={data.phone}
+                />
+            </div>
+            <div className='mt-4'>
+              <p >Email</p>
+              <input type="text" className='mt-[-15px]'
+                defaultValue={data.email} 
+                value={data.email}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Quốc gia</p>
+              <input type="text" className='mt-[-15px]'
+                value={data.country}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Thành phố</p>
+              <input type="text" className='mt-[-15px]' 
+                value={data.city}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Phường</p>
+              <input type="text" className='mt-[-15px]' 
+                value={data.wards}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Địa chỉ</p>
+              <input type="text" className='mt-[-15px]' 
+                value={dataInfor.address}
+              />
+            </div>
+         </> 
+         : 
+         <>
+            <div className='mt-4'>
+              <p >Họ và tên*</p>
+              <input type="text" className='mt-[-15px]' 
+                value={dataInfor.name}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    name : e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Số điện thoại</p>
+              <input type="text" className='mt-[-15px]' 
+                  maxLength={11} 
+                  value={dataInfor.phone}
+                  onChange={(e : any) => {
+                    setDataInfor({
+                      ...dataInfor,
+                      phone : e.target.value,
+                    })
+                  }}
+                />
+            </div>
+            <div className='mt-4'>
+              <p >Email</p>
+              <input type="text" className='mt-[-15px]'
+                defaultValue={dataInfor.email} 
+                value={dataInfor.email}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    email : e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Quốc gia</p>
+              <input type="text" className='mt-[-15px]'
+                value={dataInfor.country}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    country : e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Thành phố</p>
+              <input type="text" className='mt-[-15px]' 
+                value={dataInfor.city}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    city : e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Phường</p>
+              <input type="text" className='mt-[-15px]' 
+                value={dataInfor.wards}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    wards : e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div className='mt-4'>
+              <p >Địa chỉ</p>
+              <input type="text" className='mt-[-15px]' 
+                value={dataInfor.address}
+                onChange={(e : any) => {
+                  setDataInfor({
+                    ...dataInfor,
+                    address : e.target.value,
+                  })
+                }}
+              />
+            </div>
+         </>
+         }
+        {!edit ?
+         <>
+           <button className='mt-4 w-full text-center border-slate-300 border rounded-md bg-[#1890ff] p-2 text-white bt_save'
+           onClick={() => setEdit(true)}
+           >Edit</button>
+         </>
+         :
+         <>
+          <button className='mt-4 w-full text-center border-slate-300 border rounded-md bg-[#1890ff] p-2 text-white bt_save'
+              onClick={() => handleSave()}
+            >Save</button>
+        </>}
       </div>
     </Wrapper>
   )
