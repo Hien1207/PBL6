@@ -1,7 +1,8 @@
 export {
   login,
   register,
-  getProfile
+  getProfile,
+  updateProfile
 } from './auth.api'
 
 export {
@@ -9,7 +10,9 @@ export {
   findTrips,
   ApiBookingSeat,
   ApiBookingPartSeat,
-  ApiPayment
+  ApiPayment,
+  ApiHistoryBooking,
+  ApiRefund
 } from './route.api'
 
 export {

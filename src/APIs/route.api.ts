@@ -60,16 +60,36 @@ function ApiBookingPartSeat(Data: any, setData) {
         });
 }
 
-function ApiPayment(Data: any,setLink) {
+function ApiPayment(Data: any) {
 	return AxiosClient.post(END_POINT.PAYMENT, Data)
          .then((res) => {
-          let listResponse = res.data;
-          setLink(listResponse);
-          console.log(res.data)
+          Linking.openURL(res.data.url);
+          window.location.replace('./')
          })
         .catch((err) => {
           console.warn(err);
         });
 }
 
-export { getListLocation ,findTrips, ApiBookingSeat ,ApiBookingPartSeat ,ApiPayment};
+function ApiHistoryBooking(setListHistory) {
+	return AxiosClient.get(END_POINT.HISTORY)
+         .then((res) => {
+          setListHistory(res.data.body)
+          return res.data.body;
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+
+function ApiRefund(id: any) {
+	return AxiosClient.post(`${END_POINT.REFUND}/${id}`, id)
+         .then((res) => {
+          window.location.reload();
+           return res.data;
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+export { getListLocation ,findTrips, ApiBookingSeat ,ApiBookingPartSeat ,ApiPayment ,ApiHistoryBooking , ApiRefund};

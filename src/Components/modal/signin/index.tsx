@@ -1,5 +1,5 @@
 
-import { FunctionComponent } from 'react'
+
 import * as React from 'react';
 import {useState,useEffect} from 'react'
 import styled from 'styled-components'
@@ -27,10 +27,6 @@ const Wrapper = styled.div`
     background-color: #3786a5;
   }
 `
-
-interface SignInProps {
-	setIsCode: any;
-}
 
 const SignIn = ()  => {
   const [dataLogin, setDataLogin] = useState({
