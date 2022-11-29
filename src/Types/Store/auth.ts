@@ -3,5 +3,6 @@ export type AuthState = {
     error: any,
     authenticated: boolean | null,
     profile: any,
-    isSubmitting: boolean
+    isSubmitting: boolean,
+    message: any;
 }

@@ -7,6 +7,7 @@ import { getLocalStorage, setLocalStorage, STORAGE } from '@utils'
 import { Action } from '@type/Store'
 
 export function* loginSaga({ payload }: Action) {
+  
   try {
     const { data: result } = yield login(payload)
     const { tokens, user } = result

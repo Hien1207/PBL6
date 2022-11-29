@@ -6,6 +6,7 @@ export const STORAGE = {
   startpoint : 'startpoint',
   endpoint :'endpoint',
   date : 'date',
+  PROFILE_USER : 'PROFILE_USER'
 }
 
 export function getLocalStorage(key: any) {
