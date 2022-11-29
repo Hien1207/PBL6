@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import { register } from "@apis";
 import DatePicker from "react-datepicker";
 import { firebase, auth } from './firebase';
+import { getLocalStorage, STORAGE } from '@utils'
 
 const Wrapper = styled.div`
 
@@ -34,10 +35,11 @@ const Wrapper = styled.div`
 `
 
 interface SignUpProps {
-	setIsCode: any;
+  step:any;
+  setStep:any;
 }
 
-const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
+const SignUp: FunctionComponent<SignUpProps> = ({step, setStep}) => {
   const [value, setValue] = React.useState('sdt');
   const [startDate, setStartDate] = useState<any>(null);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +47,13 @@ const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
   };
   const [isPhone, setIsPhone] = React.useState(true);
   const [isErrCode, setIsErrCode] = React.useState(false);
+  const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
+  const [isLoggedIn, setisLoggedIN] = useState(false) 
+  useEffect(() => {
+     if (token){
+         setisLoggedIN(true)
+     }
+  },[token])
   const [dataRegister, setDataRegister] = useState({
     phoneNumber: "",
     email: "",
@@ -236,29 +245,35 @@ const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
 
   const [mynumber, setnumber] = useState("");
   const [otp, setOtp] = useState('');
-  const [step, setStep] = useState('INPUT_PHONE_NUMBER');
   const [verificationId, setVerificationId] = useState<any>(null);
 
   const sendCode = () => {
-		if (mynumber === "") return;
+    register({
+      username: dataRegister.phoneNumber,
+      password: dataRegister.password,
+      role :"1",
+    })
+    if(isLoggedIn){
+      if (mynumber === "") return;
 
-    var handlePhone = "";
-    if (mynumber.length === 10) {
-      handlePhone = mynumber.slice(1, mynumber.length);
-    } else {
-      handlePhone = mynumber;
+      var handlePhone = "";
+      if (mynumber.length === 10) {
+        handlePhone = mynumber.slice(1, mynumber.length);
+      } else {
+        handlePhone = mynumber;
+      }
+
+      let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'invisible'
+            });
+      auth.signInWithPhoneNumber("+84" + handlePhone, verify).then((result) => {
+        setVerificationId(result.verificationId)
+        setStep('VERIFY_OTP');
+        })
+          .catch((err) => {
+            alert(err);
+      });
     }
-
-		let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-              'size': 'invisible'
-          });
-    auth.signInWithPhoneNumber("+84" + handlePhone, verify).then((result) => {
-      setVerificationId(result.verificationId)
-      setStep('VERIFY_OTP');
-      })
-        .catch((err) => {
-          alert(err);
-    });
 	}
   const ValidateOtp = () => {
 		if (otp === null) return;
@@ -269,12 +284,8 @@ const SignUp: FunctionComponent<SignUpProps> = ({setIsCode}) => {
     auth.signInWithCredential(credential)
       .then(() => {
           // setStep('VERIFY_SUCCESS');
-          setIsCode(true)
-          register({
-          username: dataRegister.phoneNumber,
-          password: dataRegister.password,
-          role :"1",
-        })
+          // setIsCode(true)
+          window.location.replace("./")
 		   })
       .catch((err) => {
         setIsErrCode(true)

@@ -4,17 +4,14 @@ const END_POINT: any = {
   // auth
   LOGIN: '/api/auth/login',
   REGISTER : '/api/auth/register',
-  PROFILE_USER: '/profile-user',
-
-  // course
-  COURSE_LIST: '/v1/users',
-  CREATE_COURSE: '/v1/users',
-  COURSE: '/v1/users',
-  UPDATE_COURSE: '/v1/users',
-  DELETE_COURSES: '/v1/users',
-
-  // common
-  PRESIGNED: '/api/v1/file/pre-signed',
+  PROFILE_USER: '/api/profile/info',
+  UPDATE_PROFILE : '/api/profile/update',
+  //route 
+  BOOKSEAT : '/api/book/book-seat',
+  BOOKPARTSEAT: '/api/book/book-part-seat',
+  PAYMENT : '/api/payment',
+  HISTORY :'/api/get-history-by-user',
+  REFUND : '/api/refund',
 }
 
 export default END_POINT

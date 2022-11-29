@@ -146,7 +146,9 @@ const Header:FC<Prop> = ({setIsShow}) => {
   
   const [list, setList] = useState(items);
   const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
-  const [isLoggedIn, setisLoggedIN] = useState(false) 
+  const [isLoggedIn, setisLoggedIN] = useState(false)
+  const username = getLocalStorage(STORAGE.USER_TOKEN)?.length ? (JSON.parse(getLocalStorage(STORAGE.PROFILE_USER) || '{}')).name : null 
+
   useEffect(() => {
      if (token){
          setisLoggedIN(true)
@@ -155,10 +157,9 @@ const Header:FC<Prop> = ({setIsShow}) => {
 
   const handleLogout = useCallback(() => {
     removeLocalStorage(STORAGE.USER_TOKEN)
+    removeLocalStorage(STORAGE.USER_DATA)
     window.location.replace('./')
   }, [])
-
-
 
   const dropdownMenu = (
     <Menu>
@@ -177,11 +178,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
           <span>&nbsp;Thông tin tài khoản</span>
         </Link>
       </Menu.Item>
-      <Menu.Item key="2" >
-        <img src='	https://storage.googleapis.com/fe-production/images/ticket.svg'   alt=''/>
-        <span>&nbsp;Vé của tôi</span>
-      </Menu.Item>
-      <Menu.Item key="3" onClick={handleLogout}>
+      <Menu.Item key="2" onClick={handleLogout}>
       <img src='https://storage.googleapis.com/fe-production/images/Auth/logout.svg'   alt=''/>
         <span>&nbsp;Đăng xuất</span>
       </Menu.Item>
@@ -225,7 +222,7 @@ const Header:FC<Prop> = ({setIsShow}) => {
                           <a href="true" className="ant-dropdown-link" style={{ display: 'flex', alignItems: 'center' }} onClick={(e) => e.preventDefault()}>
                             <div className="me-3">
                               <div className="text-end">
-                                <div className="text-white ml-2">{profile?.name || 'Hiiii'}</div>
+                                <div className="text-white ml-2">{ username || 'Hiiii'}</div>
                               </div>
                             </div>
                           </a>

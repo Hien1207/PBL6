@@ -32,7 +32,7 @@ const BookingScreen = () => {
       phonenumber: "",
       email:"",
       note : "",
-      seatIds : ArrSeat ,
+      seatIds : "" ,
       tripId:"",
     });
 
@@ -52,7 +52,6 @@ const BookingScreen = () => {
          ,setData)
     },[startpoint,endpoint, date])
 
-//   console.log(JSON.stringify(date).slice(1,11))
     const onSubmitFindRoute = () => {
       findTrips({
          date: JSON.stringify(date).slice(1,11),
@@ -60,6 +59,43 @@ const BookingScreen = () => {
          des :endpoint.value}
          ,setData)
     }
+
+    const [dataSort, setDataSort] = useState<any>();
+    const [clicksortprice, setClicksortprice] = useState(false);
+    const [clicksorttime, setClicksorttime] = useState(false);
+
+    const handleSortPriceUp = () =>{
+      setClicksortprice(true)
+    }
+    const handleSortPriceDown = () =>{
+      setClicksortprice(false)
+    }
+
+    const handleSortTimeUp = () =>{
+      setClicksorttime(true)
+    }
+    const handleSortTimeDown = () =>{
+      setClicksortprice(false)
+    }
+
+    const convertTime = (time = '00:00:00') => {
+      const arrTime = time.split(':').map((item) => parseInt(item))
+      const [hour, minutes, seconds] = arrTime
+      return (hour * 3600) + (minutes * 60) + seconds;
+    }
+
+    useEffect (() => {
+      if(!clicksortprice){
+         setDataSort(data?.sort((a :any,b :any) => (a.price - b.price)))
+      }else{
+         setDataSort(data?.sort((a :any,b :any) => (b.price - a.price)))
+      }
+      if(!clicksorttime){
+         setDataSort(data?.sort((a :any,b :any) => (convertTime(a.timeStart) - convertTime(b.timeStart))))
+      }else{
+         setDataSort(data?.sort((a :any,b :any) => (convertTime(b.timeStart) - convertTime(a.timeStart))))
+      }
+    },[dataSort,data,clicksortprice,clicksorttime])
     
     const onClickInfor = (id :any) => {
       if(isClickInfor === '') {
@@ -83,7 +119,7 @@ const BookingScreen = () => {
             phonenumber: "",
             email:"",
             note : "",
-            seatIds : ArrSeat ,
+            seatIds : "" ,
             tripId:"",
           })
       }
@@ -190,12 +226,12 @@ const BookingScreen = () => {
             <h1 className='text-[16px] ml-6 py-4'>Đặt vé xe đi {endpoint.label} từ {startpoint.label} chất lượng cao và giá vé ưu đãi nhất: {data?.length} chuyến</h1>
             <div className='flex ml-6 text-[15px]'>
                 <p className='mr-16 font-bold'>Sắp xếp theo :</p>
-                <p className='mr-16'>Giờ đi sớm nhất</p>
-                <p className='mr-16'>Giờ đi muộn nhất</p>
-                <p className='mr-16'>Giá tăng dần</p>
-                <p>Giá giảm dần</p>
+                <p className='mr-16 cursor-pointer' onClick={() => {handleSortTimeUp()}}>Giờ đi sớm nhất</p>
+                <p className='mr-16 cursor-pointer'onClick={() => {handleSortTimeDown()}}>Giờ đi muộn nhất</p>
+                <p className='mr-16 cursor-pointer' onClick={() => {handleSortPriceUp()}}>Giá tăng dần</p>
+                <p className='cursor-pointer'  onClick={() => {handleSortPriceDown()}}>Giá giảm dần</p>
             </div>
-            {data?.map((item : any, index :any) => (
+            {dataSort?.map((item : any, index :any) => (
                <div className='route'>
                <div className='main flex '>
                   <div className='flex w-1/5 mr-6'>

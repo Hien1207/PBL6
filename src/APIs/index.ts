@@ -1,12 +1,18 @@
 export {
   login,
   register,
-  getProfile
+  getProfile,
+  updateProfile
 } from './auth.api'
 
 export {
   getListLocation,
-  findTrips
+  findTrips,
+  ApiBookingSeat,
+  ApiBookingPartSeat,
+  ApiPayment,
+  ApiHistoryBooking,
+  ApiRefund
 } from './route.api'
 
 export {

@@ -2,35 +2,28 @@ import AxiosClient from './api'
 import END_POINT from './constants'
 import axios from "axios";
 import { setLocalStorage, STORAGE } from '@utils'
-//@ts-ignore
-import AsyncStorage from "@react-native-async-storage/async-storage";
-function login (Data) {
-  axios({
-    method: "post",
-    url: "https://book-ticket-doan.herokuapp.com/api/auth/login",
-    data: Data,
-  })
-    .then((res) => {
-      return res.data;
-    })
-    .then(async (data) => {
-      try {
-        if (data.message) {
-         alert("Your username or password are incorrect");
-        } else {
-          await AsyncStorage.setItem("currentUser", JSON.stringify(data));
-          setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
-          setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
-          window.location.reload();
-        }
-      } catch (e) {
-        console.warn(e);
-      }
-    })
-    .catch((err) => {
-      console.warn(err);
-    });
-};
+
+function login(Data: any) {
+	return AxiosClient.post(END_POINT.LOGIN, Data)
+         .then((res) => res.data)
+         .then(async (data) => {
+          try {
+            if (data.message) {
+             alert("Your username or password are incorrect");
+            }
+             else {
+              setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
+              setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
+              window.location.reload();
+            }
+          } catch (e) {
+            console.warn(e);
+          }
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
 
 function register (Data) {
   axios({
@@ -43,10 +36,13 @@ function register (Data) {
     })
     .then(async (data) => {
       try {
-        await AsyncStorage.setItem("currentUser", JSON.stringify(data));
-        setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
-        setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
-        window.location.reload();
+        if (data.message) {
+          alert("Phone number already exists!!!");
+         }
+          else {
+            setLocalStorage(STORAGE.USER_DATA, JSON.stringify(data));
+            setLocalStorage(STORAGE.USER_TOKEN, data.accessToken);
+         }
       } catch (e) {
         console.warn(e);
       }
@@ -56,13 +52,33 @@ function register (Data) {
     });
 };
 
-function getProfile({ userId }: any) {
-  return AxiosClient.get(`${END_POINT.PROFILE_USER}?userId=${userId}`)
-    .then((res) => res)
+
+function getProfile(setInfor) {
+	return AxiosClient.get(END_POINT.PROFILE_USER)
+         .then((res) => {
+          let listResponse = res.data.body;
+          setInfor(listResponse);
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
 }
+
+function updateProfile(Data) {
+	return AxiosClient.post(END_POINT.UPDATE_PROFILE, Data)
+         .then((res) => {
+          window.location.reload();
+          return res.data
+         })
+        .catch((err) => {
+          console.warn(err);
+        });
+}
+
 
 export {
   login,
   register,
-  getProfile
+  getProfile,
+  updateProfile
 }
