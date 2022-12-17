@@ -44,6 +44,11 @@ const Wrapper = styled.div`
 		border-radius: 4px;
     width:100%;
 	}
+  img{
+    width: 80%;
+    margin-top: 20px;
+    border-radius: 26px;
+  }
 `
 
 const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, endpoint, dataInforBook}:any) => {
@@ -61,13 +66,22 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
     setList(newList);
   };
 
+  const [totalPrice, setTotalPrice] = useState<any>('')
+  useEffect(() =>{
+    if(item.status ){
+      setTotalPrice(item.price*ArrSeat.length)
+    }else{
+      setTotalPrice(item.price * count)
+    }
+  },[item])
+
   const handlePayment = () => {
     if(!select){
         setValid(true)
     }else{
       ApiPayment({
         id: dataInforBook.paymentId ,
-        price : item.price,
+        price : totalPrice,
       })
     }
   }
@@ -94,6 +108,7 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
                 ) : (
                   ""
                 )}
+                <img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2021/07/bg1.jpg" alt='' />
             </div>
             <div className='w-2/5'>
               <p className='text-base font-bold'>Thông tin chuyến đi</p>

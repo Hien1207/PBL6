@@ -5,11 +5,10 @@ import axios from 'axios'
 import JSONBig from 'json-bigint'
 
 import { isEmpty, assign } from 'lodash'
-import { BASE_API_URL } from '@constants'
 import { STORAGE, getLocalStorage } from '@utils'
 
 const singletonEnforcer = Symbol()
-const BASE_URL = `https://book-ticket-doan.herokuapp.com`
+const BASE_URL = `http://35.240.208.147:6789`
 class AxiosClient {
   axiosClient: any;
   static axiosClientInstance: AxiosClient

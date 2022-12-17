@@ -83,7 +83,7 @@ const InforDetail:FC<Prop> = ({isClickInfor, item}) => {
 							<Policy  />
 						)}
 						{list[4].isActive && (
-							<Evaluate  />
+							<Evaluate item={item} />
 						)}
 					</div>
        </div>

@@ -145,9 +145,9 @@ const Header:FC<Prop> = ({setIsShow}) => {
   const role = profile?.role
   
   const [list, setList] = useState(items);
-  const token =  getLocalStorage(STORAGE.USER_TOKEN)?.length ;
+  const token =  getLocalStorage(STORAGE?.USER_TOKEN)?.length ;
   const [isLoggedIn, setisLoggedIN] = useState(false)
-  const username = getLocalStorage(STORAGE.USER_TOKEN)?.length ? (JSON.parse(getLocalStorage(STORAGE.PROFILE_USER) || '{}')).name : null 
+  const username = token ? (JSON?.parse(getLocalStorage(STORAGE?.PROFILE_USER) || '{}')).name : null;
 
   useEffect(() => {
      if (token){

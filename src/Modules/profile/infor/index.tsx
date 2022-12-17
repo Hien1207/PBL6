@@ -139,7 +139,7 @@ const Wrapper = styled.div`
               <p >Số điện thoại</p>
               <input type="text" className='mt-[-15px]' 
                   maxLength={11} 
-                  value={dataInfor.phone}
+                  value={dataInfor.phone.replace(/\D/,'')}
                   onChange={(e : any) => {
                     setDataInfor({
                       ...dataInfor,
