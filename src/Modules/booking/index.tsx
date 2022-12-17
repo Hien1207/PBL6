@@ -19,11 +19,13 @@ const BookingScreen = () => {
    const [listLocation, setListLocation] = useState([]);
    const [startpoint, setStartPoint] = useState<any>('');
    const [endpoint, setEndPoint] = useState<any>('');
-   const [date, setDate] = useState<any>(new Date());
+   
    const [data, setData] = useState<any>();
    const today = new Date()
    const tomorrow = new Date(today)
    tomorrow.setDate(tomorrow.getDate() + 1)
+
+   const [date, setDate] = useState<any>(tomorrow);
 
    const [ArrSeat, setArrSeat] = useState<any[]>([])
    const [count, setCounter] = useState(0)
@@ -151,6 +153,7 @@ const BookingScreen = () => {
       return `${hours}:${minutes}:${seconds}`
       
     }
+
    return (
       <>
       <Wrapper id="intro" className='bg-white'>

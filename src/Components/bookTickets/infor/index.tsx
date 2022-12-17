@@ -103,6 +103,7 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
   });
 
   useEffect(() => {
+    dataBookSeat.phonenumber = dataBookSeat.phonenumber.replace(/\D/g, '');
     if (
       dataBookSeat.username &&
       dataBookSeat.phonenumber && 
@@ -234,7 +235,7 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
         <div className='mt-4'>
            <p className='font-bold'>Số điện thoại <span className='text-red-600'>*</span></p>
            <input type="text" className='mt-[-15px]' placeholder="+84 865 ### ###" 
-                value={dataBookSeat.phonenumber}
+                value={dataBookSeat.phonenumber.replace(/\D/,'')}
                 maxLength={11}
                 onChange={(e : any) => {
                   setDataBookSeat({

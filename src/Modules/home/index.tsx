@@ -18,11 +18,12 @@ const HomeScreen = () => {
    const [listLocation, setListLocation] = useState([]);
    const [startpoint, setStartPoint] = useState<any>();
    const [endpoint, setEndPoint] = useState<any>();
-   const [date, setDate] = useState<any>(new Date());
 
    const today = new Date()
    const tomorrow = new Date(today)
    tomorrow.setDate(tomorrow.getDate() + 1)
+
+   const [date, setDate] = useState<any>(tomorrow);
 
    useEffect(() => {
       getListLocation(setListLocation);
