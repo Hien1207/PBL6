@@ -12,6 +12,11 @@ const END_POINT: any = {
   PAYMENT : '/api/payment',
   HISTORY :'/api/get-history-by-user',
   REFUND : '/api/refund',
+  RATINGTRIP : '/api/create-rating',
+  GETRATINGBYAGENCY : '/api/get-list-rating-by-agency',
+  GETRATINGBYUSER : '/api/get-list-rating-by-user',
+  GETNOTIFI : '/api/get-notification',
+  GETNOPAYMENT : '/api/get-payment',
 }
 
 export default END_POINT

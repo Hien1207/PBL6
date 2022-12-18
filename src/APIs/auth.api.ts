@@ -28,7 +28,7 @@ function login(Data: any) {
 function register (Data) {
   axios({
     method: "post",
-    url: "https://book-ticket-doan.herokuapp.com/api/auth/signup",
+    url: "http://35.240.208.147:6789/api/auth/signup",
     data: Data,
   })
     .then((res) => {

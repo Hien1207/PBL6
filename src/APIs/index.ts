@@ -12,7 +12,12 @@ export {
   ApiBookingPartSeat,
   ApiPayment,
   ApiHistoryBooking,
-  ApiRefund
+  ApiRefund,
+  ApiRatingTrip,
+  getListRatingByAgency,
+  getListRatingByUser,
+  getListNotification,
+  getListNoPayment
 } from './route.api'
 
 export {

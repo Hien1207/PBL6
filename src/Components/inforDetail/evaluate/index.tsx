@@ -1,6 +1,9 @@
 
 import styled from 'styled-components'
-
+import { FC, useEffect,useState} from 'react';
+import { getListRatingByAgency } from "@apis";
+//@ts-ignore
+import ReactStarRating from "react-star-ratings-component";
 const Wrapper = styled.div`
   width: 97%;
   margin:1rem 0;
@@ -8,43 +11,49 @@ const Wrapper = styled.div`
   padding-bottom: 0.05rem;
 `
 
-const Evaluate = () => {
+interface Prop{ 
+   item :any
+ }
+
+ const Evaluate:FC<Prop> = ({item}) => {
+   const [listRating, setListRating] = useState([]);
+   useEffect(() => {
+      getListRatingByAgency(item.nameAgency, setListRating )
+   },[])
   return (
     <Wrapper>
-      <div className='h-[7.6rem] w-[100%] flex mb-2 border-b'>
+      {listRating.length ? 
+        <>
+        <div>
+        {listRating.map((item : any) => (
+         <div className='h-[9rem] w-[100%] flex mb-2 border-b'>
             <div className=' ml-6 mt-6'>
                <img src='https://halan.vn/wp-content/uploads/2021/04/avar-2.png' alt=''  />
             </div>
             <div className='block mx-6 my-4'>
-               <p className='mb-1'>Phạm Trung Nguyên</p>
+               <p className='mb-1'>{item.userName}</p>
                <p className='flex'>
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
+                  <ReactStarRating
+                     numberOfStar={5}
+                     numberOfSelectedStar={item.rating}
+                     colorFilledStar="#217f94"
+                     colorEmptyStar="black"
+                     starSize="20px"
+                     spaceBetweenStar="10px"
+                     disableOnSelect={true}
+                  />
                </p>
-               <p className='mb-0'>Xe chất lượng tốt, chạy êm và dễ ngủ</p>
-               <p className='text-zinc-400 text-xs'>Đăng ngày : 19/11/2022 </p>
+               <p className='mb-0'>{item.comment}</p>
+               <p className='text-zinc-400 text-xs'>Chuyến : {item.depart} - {item.arrive} </p>
             </div>
          </div>
-         <div className='h-[7.6rem] w-[100%] flex mb-2 border-b'>
-            <div className=' ml-6 mt-6'>
-               <img src='https://halan.vn/wp-content/uploads/2021/04/avar-2.png' alt=''  />
-            </div>
-            <div className='block mx-6 my-4'>
-               <p className='mb-1'>Phạm Trung Nguyên</p>
-               <p className='flex'>
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-                  <img className='w-[13px]' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffvhTbTErieqyGhjbw0ReH_IBgoPfFVef0qtw02JOCgE1d3EyU3ETi20ujTwBt-Y0C5M&usqp=CAU" alt='' />
-               </p>
-               <p className='mb-0'>Xe chất lượng tốt, chạy êm và dễ ngủ</p>
-               <p className='text-zinc-400 text-xs'>Đăng ngày : 19/11/2022 </p>
-            </div>
-         </div>
+      ))}
+        </div>
+        </>
+        :<>
+          <p>Chưa có đánh giá nào</p>
+        </>}
+
     </Wrapper>
   )
 }

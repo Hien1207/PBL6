@@ -14,7 +14,7 @@ const Point:FC<Prop> = ({item}) => {
 
   return (
     <Wrapper>
-      <div className="">
+      <div className="py-6">
         <p className='font-bold text-sky-500 pt-2'>Lưu ý
           <br/><span className='font-normal text-black'>Các mốc thời gian đón, trả bên dưới là thời gian dự kiến.
           <br/>Lịch này có thể thay đổi tùy tình hình thực tế.</span>
