@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {SEAT_NO , SEAT_YES, SEAT_ED} from "@assets"
 import { getLocalStorage, STORAGE } from '@utils'
 import {ModalSignIn} from "@components"
+import { formatCurrency } from "@utils";
 
 const Wrapper = styled.div`
   .left{
@@ -168,7 +169,7 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter, id
              <p className='font-bold'>Chú thích</p>
              <div className='flex h-[50px] mb-4'>
                 <img src={SEAT_YES} alt=''/>
-                <p className='ml-4 pt-2'> Ghế đơn <br/> {item.price} đ</p>
+                <p className='ml-4 pt-2'> Ghế đơn <br/> {formatCurrency(item.price)}VND</p>
              </div>
              <div className='flex h-[50px] mb-4'>
                 <img src={SEAT_NO} alt=''/>
@@ -206,9 +207,9 @@ const Place = ( {list ,setList, item ,ArrSeat ,setArrSeat, count, setCounter, id
                 <p className='pt-1 mr-6'>Tổng cộng : 
                   <span className='text-[#2a41e8]'>
                   {item.status ? 
-                    <> <p>{item.price*ArrSeat.length} đ</p></> 
+                    <> <p>{formatCurrency(item.price*ArrSeat.length)}VND</p></> 
                     : 
-                    <> <p>{item.price *count} đ</p></>
+                    <> <p>{formatCurrency(item.price *count)} VND</p></>
                   }
                   </span>
                 </p>

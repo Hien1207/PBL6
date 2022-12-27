@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import {ApiHistoryBooking} from '@apis'
 import { useEffect,useState } from 'react'
+import { formatCurrency } from "@utils";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -44,7 +45,6 @@ const Cancel = () => {
    useEffect(() =>{
       setDataSort(listHistory.reverse())
    },[listHistory])
-
   return (
     <Wrapper>
       <div className="block">
@@ -53,57 +53,57 @@ const Cancel = () => {
         <div>
          {dataSort.map((item : any, index :any) => (
           <div>
-            {item.status === "Cancel" ?
+            {item.historyBooking.status === "Cancel" ?
              <>
                <div className='item flex '>
                 <div className='w-[60%] ml-4'>
                   <h1 className='font-bold'>THÔNG TIN HÀNH TRÌNH</h1>
                   <div className='flex'>
                     <p className='w-[130px]'>Tuyến đường : </p>
-                    <p className='font-bold '>{item.route}</p>
+                    <p className='font-bold '>{item.historyBooking.route}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Ngày khởi hành : </p>
-                    <p>{item.dateStart.slice(0,10)} </p>
+                    <p>{item.historyBooking.dateStart.slice(0,10)} </p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Xe : </p>
-                    <p>{item.nameVehicle}</p>
+                    <p>{item.historyBooking.nameVehicle}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Hãng xe : </p>
-                    <p>{item.nameAgency}</p>
+                    <p>{item.historyBooking.nameAgency}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Giờ xuất phát : </p>
-                    <p>{item.timeStart || '07:00:00'}</p>
+                    <p>{item.historyBooking.timeStart || '07:00:00'}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Điểm đón : </p>
-                    <p>Bến xe {item.payment.dep}</p>
+                    <p>Bến xe {item.historyBooking.payment.dep}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Điểm đến : </p>
-                    <p>Bến xe {item.payment.des}</p>
+                    <p>Bến xe {item.historyBooking.payment.des}</p>
                   </div>
                 </div>
                 <div className='w-[40%]'>
                   <h1 className='font-bold'>THÔNG TIN VÉ</h1>
                     <div className='flex'>
                       <p className='w-[120px]'>Số lượng vé : </p>
-                      <p className='font-bold '>{item.numberTicket}</p>
+                      <p className='font-bold '>{item.historyBooking.numberTicket}</p>
                     </div>
-                    {item.nameSeat ? 
+                    {item.historyBooking.nameSeat ? 
                     <>
                       <div className='flex'>
                         <p className='w-[120px]'>Ghế : </p>
-                        <p className='font-bold '>{item.nameSeat.slice(0, item.nameSeat.length-1)}</p>
+                        <p className='font-bold '>{item.historyBooking.nameSeat.slice(0, item.historyBooking.nameSeat.length-1)}</p>
                       </div>
                     </> 
                     : <></>}
                     <div className='flex mt-[-5px]'>
                       <p className='w-[120px]'>Tổng tiền : </p>
-                      <p className='font-bold '>{item.totalPrice} đ</p>
+                      <p className='font-bold '>{formatCurrency(item.historyBooking.totalPrice)}VND</p>
                     </div>
                 </div>
               </div>

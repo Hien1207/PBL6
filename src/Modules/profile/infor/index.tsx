@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { useState , useEffect} from "react";
-import {getProfile , updateProfile} from '@apis'
-
+import {getProfile , updateProfile, getListLocation} from '@apis'
+import Select from "react-select";
 const Wrapper = styled.div`
   width: 97%;
   margin:1rem 0;
@@ -35,13 +35,24 @@ const Wrapper = styled.div`
    .bt_save:hover{
      background: #4fa0ec;
    }
+   .css-g1d714-ValueContainer{
+    padding : 0px;
+  }
+  .css-1pahdxg-control{
+    box-shadow: none !important;
+    border-color: white !important;
+    padding : 0px !important;
+    margin-left: 10px !important;
+  }
 `      
    const Infor = () => {
  
     const [data, setData] = useState<any>([])
     const [edit, setEdit] = useState(false)
+    const [listLocation, setListLocation] = useState([]);
     useEffect(() => {
       getProfile(setData)
+      getListLocation(setListLocation);
     },[setData])
 
     const [dataInfor, setDataInfor] = useState({
@@ -53,6 +64,7 @@ const Wrapper = styled.div`
       phone: '', 
       wards : '',  
     });
+    const [city, setCity] = useState('')
 
     useEffect(() => {
       setDataInfor({
@@ -70,6 +82,12 @@ const Wrapper = styled.div`
       updateProfile(dataInfor)
     }
 
+    const updatedCountries = listLocation.map((country :any) => ({
+      label: country.nameStation,
+      value: country.id,
+    }));
+
+    console.log(dataInfor.city)
   return (
     <Wrapper>
       <div className='w-[100%] mb-2 block'>
@@ -175,6 +193,22 @@ const Wrapper = styled.div`
             </div>
             <div className='mt-4'>
               <p >Thành phố</p>
+              <Select
+                  id="country"
+                  name="country"
+                  label="country"
+                  className='w-1/2 pr-2 mb-5'
+                  placeholder='Chọn thành phố'
+                  options={updatedCountries}
+                  value={city}
+                  onChange={(e :any) => {
+                    setDataInfor({
+                      ...dataInfor,
+                      city : e.label,
+                    })
+                    setCity(e.label)
+                  }}
+                />
               <input type="text" className='mt-[-15px]' 
                 value={dataInfor.city}
                 onChange={(e : any) => {

@@ -60,3 +60,7 @@ export {
   downloadOctetFile
 } from './s3'
 
+export {
+  formatCurrency
+} from './formatCurency'
+

@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import {useState,useEffect} from 'react'
 import { ApiBookingSeat,ApiBookingPartSeat } from "@apis";
+import { formatCurrency } from "@utils";
 const Wrapper = styled.div`
   .title{
     padding: 8px 12px;
@@ -295,9 +296,9 @@ const Infor = ({list ,setList, dataBookSeat,setDataBookSeat , item, ArrSeat , co
                 <p className='pt-1 mr-6'>Tổng cộng : 
                     <span className='text-[#2a41e8]'>
                       {item.status ? 
-                      <> <p>{item.price*ArrSeat.length} đ</p></> 
+                      <> <p>{formatCurrency(item.price*ArrSeat.length)}VND</p></> 
                       : 
-                      <> <p>{item.price *count} đ</p></>
+                      <> <p>{formatCurrency(item.price *count)}VND</p></>
                       }
                     </span>
                 </p>
