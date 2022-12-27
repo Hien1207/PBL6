@@ -2,6 +2,7 @@
 import axios from "axios";
 import AxiosClient from './api'
 import END_POINT from './constants'
+import { setLocalStorage } from '@utils'
 //@ts-ignore
 import { Linking } from "react-native";
 const getListLocation = (setListLocation) => {
@@ -64,6 +65,7 @@ function ApiPayment(Data: any) {
 	return AxiosClient.post(END_POINT.PAYMENT, Data)
          .then((res) => {
           Linking.openURL(res.data.url);
+          setLocalStorage('count',true)
           window.location.replace('./profile')
          })
         .catch((err) => {
@@ -93,10 +95,11 @@ function ApiRefund(id: any) {
         });
 }
 
-function ApiRatingTrip(id_trip: any, Data) {
-	return AxiosClient.post(`${END_POINT.RATINGTRIP}/${id_trip}`, Data)
+function ApiRatingTrip(Data) {
+	return AxiosClient.post(`${END_POINT.RATINGTRIP}`, Data)
          .then((res) => {
-          alert("Thank you for your reviews");
+          window.location.reload();
+          alert("Cảm ơn bạn đã đánh giá");
           return res.data;
          })
         .catch((err) => {

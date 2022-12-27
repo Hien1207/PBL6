@@ -4,6 +4,7 @@ import {ApiHistoryBooking, ApiRatingTrip} from '@apis'
 import { useEffect,useState } from 'react'
 //@ts-ignore
 import ReactStarRating from "react-star-ratings-component";
+import { formatCurrency } from "@utils";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -50,8 +51,8 @@ const Went = () => {
   const [rating, setRating] = useState(1)
   const [comment, setComment] = useState("");
 
-  const handleRating = (id_trip :any , idPayment : any,  nameAgency :any) => {
-    ApiRatingTrip(id_trip, {
+  const handleRating = (idPayment : any,  nameAgency :any) => {
+    ApiRatingTrip({
       comment : comment,
       idPayment : idPayment,
       nameAgency : nameAgency,
@@ -67,6 +68,7 @@ const Went = () => {
    useEffect(() =>{
       setDataSort(listHistory.reverse())
    },[listHistory])
+   console.log(listHistory)
 
   return (
     <Wrapper>
@@ -76,7 +78,7 @@ const Went = () => {
         <div>
          {dataSort.map((item : any, index :any) => (
           <div>
-            {new Date().valueOf() - Date.parse(item.dateStart) > 0 && item.status === "Success" ?
+            {new Date().valueOf() - Date.parse(item.historyBooking.dateStart) > 0 && item.historyBooking.status === "Success" ?
              <>
               <div className='block item'>
                <div className='flex '>
@@ -84,76 +86,81 @@ const Went = () => {
                   <h1 className='font-bold'>THÔNG TIN HÀNH TRÌNH</h1>
                   <div className='flex'>
                     <p className='w-[130px]'>Tuyến đường : </p>
-                    <p className='font-bold '>{item.route}</p>
+                    <p className='font-bold '>{item.historyBooking.route}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Ngày khởi hành : </p>
-                    <p>{item.dateStart.slice(0,10)} </p>
+                    <p>{item.historyBooking.dateStart.slice(0,10)} </p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Xe : </p>
-                    <p>{item.nameVehicle}</p>
+                    <p>{item.historyBooking.nameVehicle}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Hãng xe : </p>
-                    <p>{item.nameAgency}</p>
+                    <p>{item.historyBooking.nameAgency}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Giờ xuất phát : </p>
-                    <p>{item.timeStart || '07:00:00'}</p>
+                    <p>{item.historyBooking.timeStart || '07:00:00'}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Điểm đón : </p>
-                    <p>Bến xe {item.payment.dep}</p>
+                    <p>Bến xe {item.historyBooking.payment.dep}</p>
                   </div>
                   <div className='flex mt-[-5px]'>
                     <p className='w-[130px]'>Điểm đến : </p>
-                    <p>Bến xe {item.payment.des}</p>
+                    <p>Bến xe {item.historyBooking.payment.des}</p>
                   </div>
                 </div>
                 <div className='w-[40%]'>
                   <h1 className='font-bold'>THÔNG TIN VÉ</h1>
                     <div className='flex'>
                       <p className='w-[120px]'>Số lượng vé : </p>
-                      <p className='font-bold '>{item.numberTicket}</p>
+                      <p className='font-bold '>{item.historyBooking.numberTicket}</p>
                     </div>
-                    {item.nameSeat ? 
+                    {item.historyBooking.nameSeat ? 
                     <>
                       <div className='flex'>
                         <p className='w-[120px]'>Ghế : </p>
-                        <p className='font-bold '>{item.nameSeat.slice(0, item.nameSeat.length-1)}</p>
+                        <p className='font-bold '>{item.historyBooking.nameSeat.slice(0, item.historyBooking.nameSeat.length-1)}</p>
                       </div>
                     </> 
                     : <></>}
                     <div className='flex mt-[-5px]'>
                       <p className='w-[120px]'>Tổng tiền : </p>
-                      <p className='font-bold '>{item.totalPrice} đ</p>
+                      <p className='font-bold '>{formatCurrency(item.historyBooking.totalPrice)}VND</p>
                     </div>
                   </div>
                 </div>
-                <div className='line'></div>
-                <div className='block ml-4 mt-2 font-bold'>
-                  <p className='mb-[-2px]'>Chuyến đi của bạn như thế nào ?</p>
-                  <ReactStarRating
-                    numberOfStar={5}
-                    numberOfSelectedStar={1}
-                    colorFilledStar="#035263"
-                    colorEmptyStar="black"
-                    starSize="20px"
-                    spaceBetweenStar="10px"
-                    disableOnSelect={false}
-                    onSelectStar={val => {
-                      setRating(val);
-                    }}
-                  />
-                  <textarea  className='input_comment mt-1' placeholder="Trải nghiệm của bạn"
-                    value={comment}
-                    onChange={(e : any) => {
-                      setComment( e.target.value)
-                     }}
-                  />
-                  <button className='comment mt-1 pl-[46px]'  onClick={() => handleRating(item.id,item.payment.id, item.nameAgency)}>Gửi</button>
-                </div>
+                {item.rated === true ?
+                 <></> 
+                 :
+                 <>
+                  <div className='line'></div>
+                  <div className='block ml-4 mt-2 font-bold'>
+                    <p className='mb-[-2px]'>Chuyến đi của bạn như thế nào ?</p>
+                    <ReactStarRating
+                      numberOfStar={5}
+                      numberOfSelectedStar={1}
+                      colorFilledStar="#035263"
+                      colorEmptyStar="black"
+                      starSize="20px"
+                      spaceBetweenStar="10px"
+                      disableOnSelect={false}
+                      onSelectStar={val => {
+                        setRating(val);
+                      }}
+                    />
+                    <textarea  className='input_comment mt-1' placeholder="Trải nghiệm của bạn"
+                      onChange={(e : any) => {
+                        setComment( e.target.value)
+                      }}
+                    />
+                    <button className='comment mt-1 pl-[46px]'  onClick={() => handleRating(item.historyBooking.payment.id, item.historyBooking.nameAgency)}>Gửi</button>
+                  </div>
+                 </>
+                 }
               </div>
              </> 
              : 

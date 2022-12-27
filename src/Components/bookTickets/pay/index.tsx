@@ -4,6 +4,7 @@ import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {useState, useEffect} from 'react'
 import { ApiPayment } from "@apis";
+import { formatCurrency } from "@utils";
 
 const Wrapper = styled.div`
  .left{
@@ -86,6 +87,7 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
     }
   }
 
+  console.log(totalPrice)
   useEffect(() => {
      if(select){
       setValid(false)
@@ -150,9 +152,9 @@ const Pay = ({list ,setList, item, ArrSeat, dataBookSeat, count , startpoint, en
                 <p className='pt-1 mr-6'>Tổng cộng : 
                   <span className='text-[#2a41e8]'>
                   {item.status ? 
-                    <> <p>{item.price*ArrSeat.length} đ</p></> 
+                    <> <p>{formatCurrency(item.price*ArrSeat.length)}VND</p></> 
                     : 
-                    <> <p>{item.price *count} đ</p></>
+                    <> <p>{formatCurrency(item.price *count)}VND</p></>
                   }
                   </span>
                 </p>
