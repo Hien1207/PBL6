@@ -52,8 +52,8 @@ const Notification = () => {
                     nameVehicle={item.historyBooking?.nameVehicle}
                     nameAgency={item.historyBooking?.nameAgency}
                     timeStart={item.historyBooking?.timeStart || '07:00:00'}
-                    dep={item.historyBooking?.dep}
-                    des={item.historyBooking?.des}
+                    dep={item.historyBooking?.payment.dep}
+                    des={item.historyBooking?.payment.des}
                     numberTickets={item.historyBooking?.numberTicket}
                     nameSeat={item.historyBooking?.nameSeat.slice(0, item.historyBooking.nameSeat.length-1)}
                     totalPrice={item.historyBooking?.totalPrice}
