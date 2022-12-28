@@ -54,7 +54,7 @@ const Notification = () => {
                     timeStart={item.historyBooking?.timeStart || '07:00:00'}
                     dep={item.historyBooking?.dep}
                     des={item.historyBooking?.des}
-                    numberTickets={item.historyBooking?.numberTickets}
+                    numberTickets={item.historyBooking?.numberTicket}
                     nameSeat={item.historyBooking?.nameSeat.slice(0, item.historyBooking.nameSeat.length-1)}
                     totalPrice={item.historyBooking?.totalPrice}
                   />
