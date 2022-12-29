@@ -11,7 +11,7 @@ import {InforDetail, BookTickets} from '@components'
 import Select from "react-select";
 import { getLocalStorage,STORAGE } from '@utils'
 import { getListLocation,findTrips } from "@apis";
-
+import { formatCurrency } from "@utils";
 
 const BookingScreen = () => {
    const [isClickInfor, setIsClickInfor] = useState<any>('');
@@ -143,16 +143,18 @@ const BookingScreen = () => {
       const end = (hour2 * 3600) + (minutes2 * 60) + seconds2;
 
       const time = start + end*length
-      const h = Math.floor(time / 3600)
-      const m = Math.floor(time % 60)
-      const s = time % 60
-      const hours = h >= 10 ? h : `0${h}`
-      const seconds = s >= 10 ? s : `0${s}`
-      const minutes = m >= 10 ? m : `0${m}`
-
-      return `${hours}:${minutes}:${seconds}`
+      const h = Math.floor(time / 3600);
+      const timeh = time % 3600;
+      const m = Math.floor(timeh / 60);
+      const times = timeh % 60;
+      const s = Math.floor(times / 60);
+      const hours = h >= 10 ? h : `0${h}`;
+      const seconds = s >= 10 ? s : `0${s}`;
+      const minutes = m >= 10 ? m : `0${m}`;
+      return `${hours}:${minutes}:${seconds}`;
       
     }
+   //  console.log(data)
 
    return (
       <>
@@ -258,7 +260,7 @@ const BookingScreen = () => {
                      <p className='font-bold text-[17px] mb-0 '>Còn {item.numberSeat - item.numberSeatSelect} chỗ trống</p>
                   </div>
                   <div className='w-1/5 block '>
-                     <p className='font-bold text-[17px] mb-0 text-[#4457FF] pl-[22px]'>{item.price}đ
+                     <p className='font-bold text-[15px] mb-0 text-[#4457FF] pl-[15px]'>{formatCurrency(item.price)}VND
                        {!(isClickBook === item.idTrip) ? 
                        <>
                          <button className='bt-detail' onClick={()=> onClickBook(item.idTrip)} >Chọn tuyến</button>
